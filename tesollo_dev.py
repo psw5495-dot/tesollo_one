@@ -9,8 +9,8 @@ from mediapipe.tasks.python import vision
 # -----------------------------
 # Device (LEFT hand)
 # -----------------------------
-GRIPPER_IP = "169.254.186.73"   # DG-5F-M left hand default IP
-GRIPPER_PORT = 502              # developer mode TCP port
+GRIPPER_IP = "169.254.186.73"  # DG-5F-M left hand default IP
+GRIPPER_PORT = 502  # developer mode TCP port
 
 # -----------------------------
 # Model file (must exist locally)
@@ -38,22 +38,22 @@ DT = 1.0 / CONTROL_HZ
 # -----------------------------
 # Gains / limits
 # -----------------------------
-KP_FLEX = 0.8                   # motors 4,6,7,8,10,11,12,14,15,16,19,20
-KP_SPREAD = 1.2                 # motors 5,9,13 + default spread group
-DUTY_LIMIT_FLEX = 200           # motors 4,6,7,8,10,11,12,14,15,16,19,20
-DUTY_LIMIT_SPREAD = 250         # motors 5,9,13 + default spread group
+KP_FLEX = 0.8  # motors 4,6,7,8,10,11,12,14,15,16,19,20
+KP_SPREAD = 1.2  # motors 5,9,13 + default spread group
+DUTY_LIMIT_FLEX = 200  # motors 4,6,7,8,10,11,12,14,15,16,19,20
+DUTY_LIMIT_SPREAD = 200  # motors 5,9,13 + default spread group
 
-KP_THUMB_SPREAD = 1.3           # motors 1,2 = thumb spread
-DUTY_LIMIT_THUMB_SPREAD = 300   # motors 1,2 = thumb spread
+KP_THUMB_SPREAD = 1.3  # motors 1,2 = thumb spread
+DUTY_LIMIT_THUMB_SPREAD = 200  # motors 1,2 = thumb spread
 
-KP_THUMB_MCP = 1.0              # motor 3 = thumb MCP flex
-DUTY_LIMIT_THUMB_MCP = 280      # motor 3 = thumb MCP flex
+KP_THUMB_MCP = 1.0  # motor 3 = thumb MCP flex
+DUTY_LIMIT_THUMB_MCP = 200  # motor 3 = thumb MCP flex
 
 # Pinky helper
-KP_PINKY_SPREAD = 1.5           # motor 17 = pinky spread/base
-KP_PINKY_FLEX = 1.1             # motor 18 = pinky proximal flex/base
-DUTY_LIMIT_PINKY_SPREAD = 320   # motor 17
-DUTY_LIMIT_PINKY_FLEX = 260     # motor 18
+KP_PINKY_SPREAD = 1.5  # motor 17 = pinky spread/base
+KP_PINKY_FLEX = 1.1  # motor 18 = pinky proximal flex/base
+DUTY_LIMIT_PINKY_SPREAD = 200  # motor 17
+DUTY_LIMIT_PINKY_FLEX = 200  # motor 18
 
 # Reduce jitter
 DEADBAND_0P1DEG = 8  # 0.8 deg
@@ -70,7 +70,7 @@ FLEX_DEG_DEFAULT = 90.0
 FLEX_DEG_THUMB_MCP = 160.0
 
 # motor 4 = thumb IP flex
-FLEX_DEG_THUMB_IP  = 130.0
+FLEX_DEG_THUMB_IP = 130.0
 
 # spread
 
@@ -92,9 +92,9 @@ SPLAY_SMOOTH_ALPHA = 0.35
 FINGER_ORDER = ["finger1", "finger2", "finger3", "finger4", "finger5"]
 
 JOINT_MAP = {
-    "finger1": [1, 2, 3, 4],      # thumb: motors 1,2=spread, 3=MCP flex, 4=IP flex
-    "finger2": [5, 6, 7, 8],      # index: 5=spread, 6/7/8=flex
-    "finger3": [9, 10, 11, 12],   # middle: 9=spread, 10/11/12=flex
+    "finger1": [1, 2, 3, 4],  # thumb: motors 1,2=spread, 3=MCP flex, 4=IP flex
+    "finger2": [5, 6, 7, 8],  # index: 5=spread, 6/7/8=flex
+    "finger3": [9, 10, 11, 12],  # middle: 9=spread, 10/11/12=flex
     "finger4": [13, 14, 15, 16],  # ring: 13=spread, 14/15/16=flex
     "finger5": [17, 18, 19, 20],  # pinky: 17=spread, 18/19/20=flex
 }
@@ -121,11 +121,14 @@ DUTY_SIGN = {i: 1 for i in range(1, 21)}
 # 소프트웨어적으로 target hold + duty=0 처리
 MOTOR_ENABLED = {m: True for m in range(1, 21)}
 
+
 def make_zero_duty():
     return {jid: 0 for jid in range(1, 21)}
 
+
 def disabled_motor_list():
     return [m for m in range(1, 21) if not MOTOR_ENABLED[m]]
+
 
 def disabled_motor_text(max_len=60):
     ds = disabled_motor_list()
@@ -135,6 +138,7 @@ def disabled_motor_text(max_len=60):
     if len(s) > max_len:
         return s[:max_len - 3] + "..."
     return s
+
 
 def motor_role_name(motor_id):
     role = {
@@ -161,6 +165,7 @@ def motor_role_name(motor_id):
     }
     return role.get(motor_id, "unknown")
 
+
 def toggle_motor_enable(motor_id, cur_pos, prev_target, prev_duty):
     """
     개별 모터 제어 on/off 토글.
@@ -179,6 +184,7 @@ def toggle_motor_enable(motor_id, cur_pos, prev_target, prev_duty):
         return f"Motor {motor_id:02d} ({motor_role_name(motor_id)}) -> OFF"
     else:
         return f"Motor {motor_id:02d} ({motor_role_name(motor_id)}) -> ON"
+
 
 def enforce_motor_enable_mask(cur_pos, desired=None, target=None, raw=None, duty=None,
                               prev_target=None, prev_duty=None):
@@ -203,6 +209,7 @@ def enforce_motor_enable_mask(cur_pos, desired=None, target=None, raw=None, duty
             prev_target[m] = hold
         if prev_duty is not None:
             prev_duty[m] = 0
+
 
 def enforce_isolate_mode(cur_pos, active_motor_id, desired=None, target=None, raw=None, duty=None,
                          prev_target=None, prev_duty=None):
@@ -231,16 +238,18 @@ def enforce_isolate_mode(cur_pos, active_motor_id, desired=None, target=None, ra
         if prev_duty is not None:
             prev_duty[m] = 0
 
+
 # -----------------------------
 # Motor angle limits (deg)
 # -----------------------------
 MOTOR_LIMITS_DEG = {
-    1: (-15, 29),     2: (-77, 22),     3: (-150, 29),    4: (-90, 90),
-    5: (-20, 31),     6: (0, 115),      7: (-90, 90),     8: (-90, 90),
-    9: (-30, 30),     10: (0, 115),     11: (-90, 90),    12: (-90, 90),
-    13: (-32, 15),    14: (0, 110),     15: (-90, 90),    16: (-90, 90),
-    17: (-30, 0),     18: (-90, 15),    19: (-90, 90),    20: (-90, 90),
+    1: (-15, 29), 2: (-77, 22), 3: (-150, 29), 4: (-90, 90),
+    5: (-20, 31), 6: (0, 115), 7: (-90, 90), 8: (-90, 90),
+    9: (-30, 30), 10: (0, 115), 11: (-90, 90), 12: (-90, 90),
+    13: (-32, 15), 14: (0, 110), 15: (-90, 90), 16: (-90, 90),
+    17: (-30, 0), 18: (-90, 15), 19: (-90, 90), 20: (-90, 90),
 }
+
 
 def clamp_target_0p1deg(motor_id, target_0p1deg):
     if motor_id not in MOTOR_LIMITS_DEG:
@@ -248,15 +257,17 @@ def clamp_target_0p1deg(motor_id, target_0p1deg):
     lo, hi = MOTOR_LIMITS_DEG[motor_id]
     return int(np.clip(int(target_0p1deg), int(lo * 10), int(hi * 10)))
 
+
 # -----------------------------
 # Target speed limits (deg/s)
 # -----------------------------
 MAX_SPEED_DEG_S = {m: 100.0 for m in range(1, 21)}
 for m in [1, 5, 9, 13, 17]:
-    MAX_SPEED_DEG_S[m] = 80.0     # spread motors 1,5,9,13,17
-MAX_SPEED_DEG_S[2] = 50.0         # motor 2 = thumb spread
-MAX_SPEED_DEG_S[3] = 70.0         # motor 3 = thumb MCP
-MAX_SPEED_DEG_S[4] = 90.0         # motor 4 = thumb IP
+    MAX_SPEED_DEG_S[m] = 80.0  # spread motors 1,5,9,13,17
+MAX_SPEED_DEG_S[2] = 100.0  # motor 2 = thumb spread
+MAX_SPEED_DEG_S[3] = 100.0  # motor 3 = thumb MCP
+MAX_SPEED_DEG_S[4] = 100.0  # motor 4 = thumb IP
+
 
 def rate_limit_target(motor_id, desired_target_0p1deg, prev_target_0p1deg):
     max_deg_s = MAX_SPEED_DEG_S.get(motor_id, 120.0)
@@ -270,15 +281,17 @@ def rate_limit_target(motor_id, desired_target_0p1deg, prev_target_0p1deg):
         return int(prev_target_0p1deg) - max_delta_0p1deg
     return int(desired_target_0p1deg)
 
+
 # -----------------------------
 # Step limit vs CURRENT position (deg)
 # -----------------------------
 MAX_STEP_DEG = {m: 25.0 for m in range(1, 21)}
 for m in [1, 5, 9, 13, 17]:
-    MAX_STEP_DEG[m] = 10.0        # spread motors 1,5,9,13,17
-MAX_STEP_DEG[2] = 10.0            # motor 2 = thumb spread
-MAX_STEP_DEG[3] = 15.0            # motor 3 = thumb MCP
-MAX_STEP_DEG[4] = 20.0            # motor 4 = thumb IP
+    MAX_STEP_DEG[m] = 10.0  # spread motors 1,5,9,13,17
+MAX_STEP_DEG[2] = 10.0  # motor 2 = thumb spread
+MAX_STEP_DEG[3] = 15.0  # motor 3 = thumb MCP
+MAX_STEP_DEG[4] = 20.0  # motor 4 = thumb IP
+
 
 def clamp_step_to_current(motor_id, desired_target_0p1deg, current_pos_0p1deg):
     max_step_0p1deg = int(MAX_STEP_DEG.get(motor_id, 25.0) * 10)
@@ -290,10 +303,12 @@ def clamp_step_to_current(motor_id, desired_target_0p1deg, current_pos_0p1deg):
         return cur - max_step_0p1deg
     return des
 
+
 # -----------------------------
 # Duty slew limit
 # -----------------------------
 MAX_DUTY_STEP = 40
+
 
 def slew_limit_duty(motor_id, new_duty, prev_duty):
     prev = int(prev_duty.get(motor_id, 0))
@@ -305,6 +320,7 @@ def slew_limit_duty(motor_id, new_duty, prev_duty):
     prev_duty[motor_id] = nd
     return nd
 
+
 # -----------------------------
 # GLOBAL LOAD LIMITS
 # -----------------------------
@@ -312,6 +328,7 @@ TOTAL_DUTY_BUDGET = 1700
 MAX_ACTIVE_JOINTS = 12
 MIN_DUTY_TO_MOVE = 18
 PROTECTED_JOINTS = {17, 18}
+
 
 def apply_global_limits(raw_duty_dict):
     """
@@ -348,6 +365,7 @@ def apply_global_limits(raw_duty_dict):
 
     return duty
 
+
 # -----------------------------
 # Camera resolution helper
 # -----------------------------
@@ -357,12 +375,13 @@ def set_camera_resolution(cap, width, height):
     """
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
-    
+
     # 실제 설정된 해상도 확인
     actual_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     actual_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-    
+
     return actual_width, actual_height
+
 
 # -----------------------------
 # Developer-mode TCP client
@@ -419,7 +438,7 @@ class DG5FDevClient:
         i = 0
         while i + 3 <= len(payload):
             jid = payload[i]
-            val = struct.unpack(">h", payload[i+1:i+3])[0]  # 0.1deg signed
+            val = struct.unpack(">h", payload[i + 1:i + 3])[0]  # 0.1deg signed
             pos[jid] = val
             i += 3
         return pos
@@ -431,16 +450,18 @@ class DG5FDevClient:
             data += struct.pack("B", jid) + struct.pack(">h", duty)
         self.send_only(0x05, data=data)
 
+
 # -----------------------------
 # Hand tracking
 # -----------------------------
 FINGER_LANDMARKS = {
-    "finger1": [1, 2, 3, 4],      # thumb: landmarks 1,2,3,4 -> motors 1,2,3,4
-    "finger2": [5, 6, 7, 8],      # index -> motors 5,6,7,8
-    "finger3": [9, 10, 11, 12],   # middle -> motors 9,10,11,12
+    "finger1": [1, 2, 3, 4],  # thumb: landmarks 1,2,3,4 -> motors 1,2,3,4
+    "finger2": [5, 6, 7, 8],  # index -> motors 5,6,7,8
+    "finger3": [9, 10, 11, 12],  # middle -> motors 9,10,11,12
     "finger4": [13, 14, 15, 16],  # ring -> motors 13,14,15,16
     "finger5": [17, 18, 19, 20],  # pinky -> motors 17,18,19,20
 }
+
 
 def _angle_deg(v1, v2):
     dot = float(np.dot(v1, v2))
@@ -451,9 +472,11 @@ def _angle_deg(v1, v2):
     c = np.clip(dot / (n1 * n2), -1.0, 1.0)
     return math.degrees(math.acos(c))
 
+
 def _curl_from_joint_angle(angle_deg, open_deg=170.0, closed_deg=70.0):
     curl = (open_deg - angle_deg) / (open_deg - closed_deg)
     return float(np.clip(curl, 0.0, 1.0))
+
 
 def _finger_curl(lms, finger):
     idx = FINGER_LANDMARKS[finger]
@@ -474,35 +497,39 @@ def _finger_curl(lms, finger):
     avg = 0.6 * ang_pip + 0.4 * ang_dip
     return _curl_from_joint_angle(avg)
 
+
 def _thumb_mcp_ip_curls(lms):
     p1, p2, p3, p4 = lms[1], lms[2], lms[3], lms[4]
     ang_mcp = _angle_deg(p1 - p2, p3 - p2)
-    ang_ip  = _angle_deg(p2 - p3, p4 - p3)
+    ang_ip = _angle_deg(p2 - p3, p4 - p3)
     return _curl_from_joint_angle(ang_mcp), _curl_from_joint_angle(ang_ip)
+
 
 def _draw_landmarks(frame, lms_xy):
     conns = [
-        (0,1),(1,2),(2,3),(3,4),
-        (0,5),(5,6),(6,7),(7,8),
-        (0,9),(9,10),(10,11),(11,12),
-        (0,13),(13,14),(14,15),(15,16),
-        (0,17),(17,18),(18,19),(19,20),
-        (5,9),(9,13),(13,17)
+        (0, 1), (1, 2), (2, 3), (3, 4),
+        (0, 5), (5, 6), (6, 7), (7, 8),
+        (0, 9), (9, 10), (10, 11), (11, 12),
+        (0, 13), (13, 14), (14, 15), (15, 16),
+        (0, 17), (17, 18), (18, 19), (19, 20),
+        (5, 9), (9, 13), (13, 17)
     ]
     for a, b in conns:
-        cv2.line(frame, lms_xy[a], lms_xy[b], (0,255,0), 2)
+        cv2.line(frame, lms_xy[a], lms_xy[b], (0, 255, 0), 2)
     for i, (x, y) in enumerate(lms_xy):
-        color, r = (0,0,255), 4
+        color, r = (0, 0, 255), 4
         if i == 0:
-            color, r = (255,0,0), 7
-        if i in [4,8,12,16,20]:
-            color, r = (0,255,255), 6
+            color, r = (255, 0, 0), 7
+        if i in [4, 8, 12, 16, 20]:
+            color, r = (0, 255, 255), 6
         cv2.circle(frame, (x, y), r, color, -1)
+
 
 # -----------------------------
 # HUD / Overlay helpers
 # -----------------------------
 FONT = cv2.FONT_HERSHEY_SIMPLEX
+
 
 def cv_safe_text(text: str) -> str:
     if text is None:
@@ -523,15 +550,18 @@ def cv_safe_text(text: str) -> str:
     out = out.encode("ascii", "replace").decode("ascii")
     return out
 
-def put_text_outline(img, text, org, scale=0.5, color=(255,255,255), thickness=1):
+
+def put_text_outline(img, text, org, scale=0.5, color=(255, 255, 255), thickness=1):
     text = cv_safe_text(text)
-    cv2.putText(img, text, org, FONT, scale, (0,0,0), thickness + 2, cv2.LINE_AA)
+    cv2.putText(img, text, org, FONT, scale, (0, 0, 0), thickness + 2, cv2.LINE_AA)
     cv2.putText(img, text, org, FONT, scale, color, thickness, cv2.LINE_AA)
 
-def draw_alpha_box(img, x1, y1, x2, y2, color=(40,40,40), alpha=0.55):
+
+def draw_alpha_box(img, x1, y1, x2, y2, color=(40, 40, 40), alpha=0.55):
     overlay = img.copy()
     cv2.rectangle(overlay, (x1, y1), (x2, y2), color, -1)
     cv2.addWeighted(overlay, alpha, img, 1.0 - alpha, 0, img)
+
 
 def duty_color(v):
     if v > 0:
@@ -540,15 +570,17 @@ def duty_color(v):
         return (255, 180, 0)
     return (180, 180, 180)
 
+
 def joint_label_offset(motor_id):
     local = (motor_id - 1) % 4
     offsets = [
         (-52, -10),  # j0
-        (-52,  12),  # j1
-        (  8, -10),  # j2
-        (  8,  12),  # j3
+        (-52, 12),  # j1
+        (8, -10),  # j2
+        (8, 12),  # j3
     ]
     return offsets[local]
+
 
 def draw_joint_angle_labels(frame, lms_xy, cur_pos, target_pos=None):
     if lms_xy is None or cur_pos is None:
@@ -581,13 +613,14 @@ def draw_joint_angle_labels(frame, lms_xy, cur_pos, target_pos=None):
             thickness=1
         )
 
+
 def draw_duty_panel(frame, duty_dict):
     h, w = frame.shape[:2]
     x1, y1 = w - 320, 10
     x2, y2 = w - 10, 270
     draw_alpha_box(frame, x1, y1, x2, y2, color=(35, 35, 35), alpha=0.62)
 
-    put_text_outline(frame, "Current Duty", (x1 + 10, y1 + 22), scale=0.58, color=(255,255,255), thickness=1)
+    put_text_outline(frame, "Current Duty", (x1 + 10, y1 + 22), scale=0.58, color=(255, 255, 255), thickness=1)
 
     total_abs = sum(abs(int(v)) for v in duty_dict.values())
     active = sum(1 for v in duty_dict.values() if int(v) != 0)
@@ -618,9 +651,10 @@ def draw_duty_panel(frame, duty_dict):
             label,
             (x, y),
             scale=0.42,
-            color=duty_color(v) if MOTOR_ENABLED[motor_id] else (120,120,120),
+            color=duty_color(v) if MOTOR_ENABLED[motor_id] else (120, 120, 120),
             thickness=1
         )
+
 
 def draw_key_panel(frame, emergency_stop, home_zero,
                    motor_input_buffer, flash_text,
@@ -629,9 +663,9 @@ def draw_key_panel(frame, emergency_stop, home_zero,
     h, w = frame.shape[:2]
     x1, y2 = 10, h - 10
     x2, y1 = 620, h - 265  # 해상도 정보를 위해 높이 증가
-    draw_alpha_box(frame, x1, y1, x2, y2, color=(35,35,35), alpha=0.58)
+    draw_alpha_box(frame, x1, y1, x2, y2, color=(35, 35, 35), alpha=0.58)
 
-    put_text_outline(frame, "Keys", (x1 + 10, y1 + 22), scale=0.58, color=(255,255,255), thickness=1)
+    put_text_outline(frame, "Keys", (x1 + 10, y1 + 22), scale=0.58, color=(255, 255, 255), thickness=1)
 
     isolate_line = "OFF"
     if isolate_mode and isolate_motor_id is not None:
@@ -653,22 +687,23 @@ def draw_key_panel(frame, emergency_stop, home_zero,
 
     y = y1 + 45
     for line in lines:
-        put_text_outline(frame, line, (x1 + 10, y), scale=0.42, color=(220,220,220), thickness=1)
+        put_text_outline(frame, line, (x1 + 10, y), scale=0.42, color=(220, 220, 220), thickness=1)
         y += 18
 
     if flash_text:
-        put_text_outline(frame, flash_text, (x1 + 10, y + 10), scale=0.48, color=(0,255,255), thickness=1)
+        put_text_outline(frame, flash_text, (x1 + 10, y + 10), scale=0.48, color=(0, 255, 255), thickness=1)
+
 
 def draw_runtime_hud(frame, status_text, lms_xy, cur_pos, target_dict, duty_dict,
                      emergency_stop, home_zero,
                      motor_input_buffer="", flash_text="",
                      isolate_mode=False, isolate_motor_id=None,
                      resolution_text=""):
-    status_color = (0,255,0)
+    status_color = (0, 255, 0)
     if emergency_stop:
-        status_color = (0,0,255)
+        status_color = (0, 0, 255)
     elif home_zero:
-        status_color = (0,165,255)
+        status_color = (0, 165, 255)
 
     low = status_text.lower()
     if "error" in low or "show your hand" in low or "emergency" in low:
@@ -691,6 +726,7 @@ def draw_runtime_hud(frame, status_text, lms_xy, cur_pos, target_dict, duty_dict
         resolution_text
     )
 
+
 # -----------------------------
 # splay helpers
 # -----------------------------
@@ -698,14 +734,17 @@ def _unit2(v):
     n = float(np.linalg.norm(v))
     return v / (n + 1e-9)
 
+
 def _signed_angle_2d(a, b):
     a = _unit2(a)
     b = _unit2(b)
-    return math.degrees(math.atan2(a[0]*b[1] - a[1]*b[0], a[0]*b[0] + a[1]*b[1]))
+    return math.degrees(math.atan2(a[0] * b[1] - a[1] * b[0], a[0] * b[0] + a[1] * b[1]))
+
 
 def _finger_dir_2d(lms_np, mcp_idx, tip_idx):
     v = lms_np[tip_idx] - lms_np[mcp_idx]
     return np.array([v[0], v[1]], dtype=np.float32)
+
 
 def compute_splay_deg(lms_np):
     dirs = {
@@ -723,6 +762,7 @@ def compute_splay_deg(lms_np):
         "finger5": _signed_angle_2d(base, dirs["finger5"]),
         "finger1": _signed_angle_2d(base, dirs["finger1"]),
     }
+
 
 class HandTrackerTasks:
     def __init__(self, model_path=MODEL_PATH):
@@ -768,13 +808,14 @@ class HandTrackerTasks:
 
         lms = res.hand_landmarks[hand_idx]
         lms_np = np.array([[p.x, p.y, p.z] for p in lms], dtype=np.float32)
-        lms_xy = [(int(p.x*w), int(p.y*h)) for p in lms]
+        lms_xy = [(int(p.x * w), int(p.y * h)) for p in lms]
         _draw_landmarks(frame_bgr, lms_xy)
 
         curls = {f: _finger_curl(lms_np, f) for f in FINGER_ORDER}
         splay = compute_splay_deg(lms_np)
         thumb_mcp_curl, thumb_ip_curl = _thumb_mcp_ip_curls(lms_np)
         return frame_bgr, curls, splay, (thumb_mcp_curl, thumb_ip_curl), lms_xy
+
 
 # -----------------------------
 # Control helpers
@@ -786,9 +827,11 @@ def to_duty(err_0p1deg, kp, lim, motor_id):
     d = int(np.clip(d, -lim, lim))
     return DUTY_SIGN[motor_id] * d
 
+
 def curl_to_flex_deg(curl_now, flex_deg):
     c = float(np.clip(curl_now, 0.0, 1.0))
     return c * flex_deg
+
 
 # -----------------------------
 # Main
@@ -812,7 +855,7 @@ def main():
     # 초기 해상도 설정
     resolution_index = DEFAULT_RESOLUTION_INDEX
     current_width, current_height = set_camera_resolution(
-        cap, 
+        cap,
         RESOLUTION_PRESETS[resolution_index][0],
         RESOLUTION_PRESETS[resolution_index][1]
     )
@@ -882,26 +925,46 @@ def main():
         해상도 변경 함수 (+1: 증가, -1: 감소)
         """
         nonlocal resolution_index, current_width, current_height, flash_text, flash_t_end
-        
+        nonlocal cap  # 중요: 카메라 객체를 교체하기 위해 필요
+
         new_index = resolution_index + direction
-        
+
         if new_index < 0:
             new_index = 0
             flash_text = "Already at minimum resolution"
             flash_t_end = time.time() + 1.5
             return
-        
+
         if new_index >= len(RESOLUTION_PRESETS):
             new_index = len(RESOLUTION_PRESETS) - 1
             flash_text = "Already at maximum resolution"
             flash_t_end = time.time() + 1.5
             return
-        
+
         resolution_index = new_index
         target_width, target_height = RESOLUTION_PRESETS[resolution_index]
-        
+
+        # 기존 카메라 완전히 해제
+        cap.release()
+        time.sleep(0.1)  # 드라이버 정리 시간
+
+        # 새 카메라 객체 생성
+        cap = cv2.VideoCapture(0)
+        if not cap.isOpened():
+            print("[ERROR] Failed to reopen camera")
+            flash_text = "Camera reopen failed"
+            flash_t_end = time.time() + 2.0
+            # 복구 시도
+            cap = cv2.VideoCapture(0)
+            return
+
+        # 새 해상도 설정
         current_width, current_height = set_camera_resolution(cap, target_width, target_height)
-        
+
+        # 버퍼 클리어 (중요: 안정적인 프레임 획득을 위해)
+        for _ in range(5):
+            cap.grab()
+
         flash_text = f"Resolution changed to {current_width}x{current_height}"
         flash_t_end = time.time() + 2.0
         print(f"[OK] Resolution changed to {current_width}x{current_height}")
@@ -1186,7 +1249,7 @@ def main():
 
             thumb_mcp_curl, thumb_ip_curl = thumb_pair
             smooth_thumb_mcp = (1.0 - SMOOTH_ALPHA) * smooth_thumb_mcp + SMOOTH_ALPHA * thumb_mcp_curl
-            smooth_thumb_ip  = (1.0 - SMOOTH_ALPHA) * smooth_thumb_ip  + SMOOTH_ALPHA * thumb_ip_curl
+            smooth_thumb_ip = (1.0 - SMOOTH_ALPHA) * smooth_thumb_ip + SMOOTH_ALPHA * thumb_ip_curl
             thumb_mcp_curl, thumb_ip_curl = smooth_thumb_mcp, smooth_thumb_ip
 
             # 1) desired targets (0.1deg)
@@ -1224,10 +1287,10 @@ def main():
                         FLEX_DEG_THUMB_IP
                     )
 
-                    desired[j0] = clamp_target_0p1deg(j0, TARGET_SIGN[j0] * spread_cmd_0p1)      # motor 1
-                    desired[j1] = clamp_target_0p1deg(j1, TARGET_SIGN[j1] * spread_cmd_0p1)      # motor 2
-                    desired[j2] = clamp_target_0p1deg(j2, TARGET_SIGN[j2] * int(mcp_deg * 10))   # motor 3
-                    desired[j3] = clamp_target_0p1deg(j3, TARGET_SIGN[j3] * int(ip_deg * 10))    # motor 4
+                    desired[j0] = clamp_target_0p1deg(j0, TARGET_SIGN[j0] * spread_cmd_0p1)  # motor 1
+                    desired[j1] = clamp_target_0p1deg(j1, TARGET_SIGN[j1] * spread_cmd_0p1)  # motor 2
+                    desired[j2] = clamp_target_0p1deg(j2, TARGET_SIGN[j2] * int(mcp_deg * 10))  # motor 3
+                    desired[j3] = clamp_target_0p1deg(j3, TARGET_SIGN[j3] * int(ip_deg * 10))  # motor 4
 
                 else:
                     # non-thumb flex -> motors 6/7/8, 10/11/12, 14/15/16, 18/19/20
@@ -1238,9 +1301,9 @@ def main():
                     flex_0p1 = int(flex_deg * 10)
 
                     desired[j0] = clamp_target_0p1deg(j0, TARGET_SIGN[j0] * spread_cmd_0p1)  # spread motors 5,9,13,17
-                    desired[j1] = clamp_target_0p1deg(j1, TARGET_SIGN[j1] * flex_0p1)        # flex motors 6,10,14,18
-                    desired[j2] = clamp_target_0p1deg(j2, TARGET_SIGN[j2] * flex_0p1)        # flex motors 7,11,15,19
-                    desired[j3] = clamp_target_0p1deg(j3, TARGET_SIGN[j3] * flex_0p1)        # flex motors 8,12,16,20
+                    desired[j1] = clamp_target_0p1deg(j1, TARGET_SIGN[j1] * flex_0p1)  # flex motors 6,10,14,18
+                    desired[j2] = clamp_target_0p1deg(j2, TARGET_SIGN[j2] * flex_0p1)  # flex motors 7,11,15,19
+                    desired[j3] = clamp_target_0p1deg(j3, TARGET_SIGN[j3] * flex_0p1)  # flex motors 8,12,16,20
 
             # 2) step limit vs current
             for m in range(1, 21):
@@ -1298,26 +1361,26 @@ def main():
                 elif f == "finger5":
                     raw[j0] = to_duty(e0, KP_PINKY_SPREAD, DUTY_LIMIT_PINKY_SPREAD, j0)  # motor 17
                 else:
-                    raw[j0] = to_duty(e0, KP_SPREAD, DUTY_LIMIT_SPREAD, j0)               # motors 5,9,13
+                    raw[j0] = to_duty(e0, KP_SPREAD, DUTY_LIMIT_SPREAD, j0)  # motors 5,9,13
 
                 if f == "finger1":
                     e1 = target[j1] - cur.get(j1, 0)
-                    raw[j1] = to_duty(e1, KP_THUMB_SPREAD, DUTY_LIMIT_THUMB_SPREAD, j1)   # motor 2
+                    raw[j1] = to_duty(e1, KP_THUMB_SPREAD, DUTY_LIMIT_THUMB_SPREAD, j1)  # motor 2
 
                     e2 = target[j2] - cur.get(j2, 0)
-                    raw[j2] = to_duty(e2, KP_THUMB_MCP, DUTY_LIMIT_THUMB_MCP, j2)         # motor 3
+                    raw[j2] = to_duty(e2, KP_THUMB_MCP, DUTY_LIMIT_THUMB_MCP, j2)  # motor 3
 
                     e3 = target[j3] - cur.get(j3, 0)
-                    raw[j3] = to_duty(e3, KP_FLEX, DUTY_LIMIT_FLEX, j3)                   # motor 4
+                    raw[j3] = to_duty(e3, KP_FLEX, DUTY_LIMIT_FLEX, j3)  # motor 4
 
                 elif f == "finger5":
                     e1 = target[j1] - cur.get(j1, 0)
                     e2 = target[j2] - cur.get(j2, 0)
                     e3 = target[j3] - cur.get(j3, 0)
 
-                    raw[j1] = to_duty(e1, KP_PINKY_FLEX, DUTY_LIMIT_PINKY_FLEX, j1)       # motor 18
-                    raw[j2] = to_duty(e2, KP_FLEX, DUTY_LIMIT_FLEX, j2)                   # motor 19
-                    raw[j3] = to_duty(e3, KP_FLEX, DUTY_LIMIT_FLEX, j3)                   # motor 20
+                    raw[j1] = to_duty(e1, KP_PINKY_FLEX, DUTY_LIMIT_PINKY_FLEX, j1)  # motor 18
+                    raw[j2] = to_duty(e2, KP_FLEX, DUTY_LIMIT_FLEX, j2)  # motor 19
+                    raw[j3] = to_duty(e3, KP_FLEX, DUTY_LIMIT_FLEX, j3)  # motor 20
 
                 else:
                     e1 = target[j1] - cur.get(j1, 0)
@@ -1396,6 +1459,7 @@ def main():
         cap.release()
         cv2.destroyAllWindows()
         print("[OK] Exit cleanly")
+
 
 if __name__ == "__main__":
     main()
