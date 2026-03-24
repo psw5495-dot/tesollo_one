@@ -56,7 +56,7 @@ SMOOTH_ALPHA = 0.35
 # Control limits
 DEADBAND_0P1DEG = 8
 MAX_DUTY_STEP = 40
-TOTAL_DUTY_BUDGET = 1700
+TOTAL_DUTY_BUDGET = 1500
 MAX_ACTIVE_JOINTS = 12
 MIN_DUTY_TO_MOVE = 18
 PROTECTED_JOINTS = {17, 18}
@@ -68,7 +68,7 @@ JOINT_MAP = {
     "finger4": [13, 14, 15, 16], "finger5": [17, 18, 19, 20]
 }
 TARGET_SIGN = {i: 1 for i in range(1, 21)}
-for m in [1, 2, 3, 4, 17, 18]:
+for m in [3, 4, 17, 18]:
     TARGET_SIGN[m] = -1
 DUTY_SIGN = {i: 1 for i in range(1, 21)}
 
@@ -146,7 +146,7 @@ def enforce_motor_enable_mask(cur_pos, **kwargs):
 
 def clamp_target_0p1deg(motor_id, target_0p1deg):
     limits = {
-        1: (-150, 290), 2: (-850, 200), 3: (-1500, 290), 4: (-900, 900),
+        1: (-150, 290), 2: (-850, 900), 3: (-1500, 290), 4: (-900, 900),
         5: (-200, 310), 6: (0, 1150), 17: (-300, 0), 18: (-900, 150)
     }
     if motor_id in limits:
