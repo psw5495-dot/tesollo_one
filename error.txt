@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "C:\Users\Administrator\PycharmProjects\Tesollo_backup\teleop_dev.py", line 1445, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\Administrator\PycharmProjects\Tesollo_backup\teleop_dev.py", line 959, in main
+    ret, frame = cap.read()
+                 ~~~~~~~~^^
+cv2.error: OpenCV(4.13.0) D:\a\opencv-python\opencv-python\opencv\modules\core\src\matrix.cpp:434: error: (-215:Assertion failed) _step >= minstep in function 'cv::Mat::Mat'
