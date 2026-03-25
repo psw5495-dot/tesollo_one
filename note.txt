@@ -1,0 +1,621 @@
+import pandas as pd
+import openpyxl
+from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
+from openpyxl.utils import get_column_letter
+from datetime import datetime
+
+def create_robot_hand_bom():
+    """
+    모터 구동 방식 휴머노이드 로봇 손의 완전한 부품 목록(BOM) 엑셀 파일 생성
+    """
+    
+    print("🤖 휴머노이드 로봇 손 BOM 생성을 시작합니다...")
+    
+    # 워크북 생성
+    wb = openpyxl.Workbook()
+    
+    # 기본 시트 제거
+    if 'Sheet' in wb.sheetnames:
+        wb.remove(wb['Sheet'])
+    
+    # 스타일 정의
+    header_font = Font(name='맑은 고딕', size=11, bold=True, color='FFFFFF')
+    header_fill = PatternFill(start_color='2F5597', end_color='2F5597', fill_type='solid')
+    category_font = Font(name='맑은 고딕', size=12, bold=True, color='FFFFFF')
+    category_fill = PatternFill(start_color='4472C4', end_color='4472C4', fill_type='solid')
+    subcategory_font = Font(name='맑은 고딕', size=11, bold=True, color='000000')
+    subcategory_fill = PatternFill(start_color='D9E1F2', end_color='D9E1F2', fill_type='solid')
+    normal_font = Font(name='맑은 고딕', size=10)
+    center_alignment = Alignment(horizontal='center', vertical='center', wrap_text=True)
+    left_alignment = Alignment(horizontal='left', vertical='center', wrap_text=True)
+    thin_border = Border(
+        left=Side(style='thin'), right=Side(style='thin'),
+        top=Side(style='thin'), bottom=Side(style='thin')
+    )
+    
+    def add_category_header(ws, title, row_num):
+        """카테고리 헤더 추가"""
+        ws.append([title])
+        ws.merge_cells(f'A{row_num}:F{row_num}')
+        cell = ws[f'A{row_num}']
+        cell.font = category_font
+        cell.fill = category_fill
+        cell.alignment = center_alignment
+        cell.border = thin_border
+        return row_num + 1
+    
+    def add_subcategory_header(ws, title, row_num):
+        """서브카테고리 헤더 추가"""
+        ws.append([title])
+        ws.merge_cells(f'A{row_num}:F{row_num}')
+        cell = ws[f'A{row_num}']
+        cell.font = subcategory_font
+        cell.fill = subcategory_fill
+        cell.alignment = center_alignment
+        cell.border = thin_border
+        return row_num + 1
+    
+    def add_table_header(ws, headers):
+        """테이블 헤더 추가"""
+        ws.append(headers)
+        for cell in ws[ws.max_row]:
+            cell.font = header_font
+            cell.fill = header_fill
+            cell.alignment = center_alignment
+            cell.border = thin_border
+    
+    def add_table_rows(ws, data):
+        """테이블 데이터 행 추가"""
+        for row_data in data:
+            ws.append(row_data)
+            for cell in ws[ws.max_row]:
+                cell.font = normal_font
+                cell.alignment = left_alignment
+                cell.border = thin_border
+    
+    def set_column_widths(ws, widths):
+        """열 너비 설정"""
+        for i, width in enumerate(widths, 1):
+            ws.column_dimensions[get_column_letter(i)].width = width
+
+    # ========== 1. 구동 시스템 시트 ==========
+    print("📊 1. 구동 시스템 시트 생성 중...")
+    ws1 = wb.create_sheet('1_구동시스템')
+    
+    current_row = add_category_header(ws1, '1. 구동 시스템 (Actuation System)', 1)
+    ws1.append([])  # 빈 행
+    current_row += 1
+    
+    # 1-1. 전기 모터
+    current_row = add_subcategory_header(ws1, '1-1. 전기 모터', current_row + 1)
+    add_table_header(ws1, ['모터 종류', '주요 스펙', '대표 제품/제조사', '적용 용도', '가격대 (USD)', '비고'])
+    
+    motor_data = [
+        ['BLDC 모터', 
+         '• 직경: 6-22mm\n• 길이: 15-40mm\n• 전압: 12-24V\n• 회전수: 5,000-30,000rpm\n• 토크: 5-50mN·m\n• 효율: 80-90%',
+         '• Maxon EC 시리즈\n• Faulhaber BX4 시리즈\n• Portescap Ultra EC',
+         '메인 구동용\n(손가락 주관절)',
+         '$200-800',
+         '가장 널리 사용'],
+        ['코어리스 DC 모터',
+         '• 직경: 4-10mm\n• 전압: 3-12V\n• 회전수: 10,000-20,000rpm\n• 토크: 1-10mN·m\n• 특징: 저관성, 고응답',
+         '• Faulhaber 0816\n• Maxon DCX 시리즈\n• Precision Microdrives',
+         '보조 구동용\n(손끝 관절)',
+         '$100-400',
+         '초소형 공간용'],
+        ['스테퍼 모터',
+         '• 크기: NEMA 8, NEMA 11\n• 스텝각: 1.8° (200 step/rev)\n• 전압: 12-24V\n• 보유토크: 10-100mN·m',
+         '• Pololu 시리즈\n• Trinamic QMot\n• Oriental Motor',
+         '저가형/\n프로토타입용',
+         '$10-50',
+         '오픈루프 제어 가능']
+    ]
+    add_table_rows(ws1, motor_data)
+    
+    # 1-2. 감속기 시스템
+    ws1.append([])
+    current_row = add_subcategory_header(ws1, '1-2. 감속기 시스템', ws1.max_row + 1)
+    add_table_header(ws1, ['감속기 종류', '주요 스펙', '대표 제품/제조사', '특징', '가격대 (USD)', '비고'])
+    
+    gearbox_data = [
+        ['유성 기어박스',
+         '• 직경: 6-32mm\n• 감속비: 20:1-1000:1\n• 효율: 90-95%/단\n• 백래시: 0.5-2°',
+         '• Maxon GP 시리즈\n• Nanotec GP-A\n• Neugart PLE',
+         '일반적 선택\n높은 토크밀도',
+         '$80-300',
+         '가장 보편적'],
+        ['하모닉 드라이브',
+         '• 감속비: 50:1-160:1\n• 백래시: < 1 arcmin\n• 효율: 70-85%\n• 형태: 컵/팬케이크',
+         '• Harmonic Drive HDSI\n• Harmonic Drive CSF\n• Leader Drive',
+         '초정밀 제어용\n제로 백래시',
+         '$500-2000',
+         '고가, 고정밀'],
+        ['사이클로이드 감속기',
+         '• 감속비: 50:1-200:1\n• 백래시: < 1°\n• 효율: 85-90%',
+         '• Nabtesco RV-E\n• KOFON 시리즈',
+         '중간 성능\n비용 효율적',
+         '$200-800',
+         '절충안']
+    ]
+    add_table_rows(ws1, gearbox_data)
+    
+    # 1-3. 동력 전달 메커니즘
+    ws1.append([])
+    current_row = add_subcategory_header(ws1, '1-3. 동력 전달 메커니즘', ws1.max_row + 1)
+    add_table_header(ws1, ['전달 방식', '구성 부품', '주요 스펙', '재질/규격', '가격대 (USD)', '비고'])
+    
+    transmission_data = [
+        ['텐던/케이블 구동', '스틸 와이어',
+         '• 직경: 0.3-1.0mm\n• 인장강도: 1,500-2,000MPa\n• 구성: 7×7, 1×19 strand',
+         '스테인리스 스틸 316', '$5-20/m', '내구성 우수'],
+        ['', '합성섬유 케이블',
+         '• 직경: 0.5-2.0mm\n• 인장강도: > 3,000MPa\n• 특징: 경량, 유연',
+         'Dyneema, Spectra (UHMWPE)', '$10-40/m', '경량화'],
+        ['', '풀리 시스템',
+         '• 직경: 3-10mm\n• 베어링: 볼베어링/부시\n• 재질: Al, 델린, 세라믹',
+         '정밀 가공 필요', '$5-30/개', '마찰 최소화'],
+        ['직접 링키지', '4절 링크',
+         '• 길이: 10-40mm\n• 두께: 1-3mm\n• 정밀도: ±0.1mm',
+         '알루미늄, 티타늄, PEEK', '$10-50/세트', '백래시 없음'],
+        ['', '캠/크랭크',
+         '• 편심량: 1-5mm\n• 각도 정밀도: ±0.5°',
+         '경화강, 알루미늄', '$15-60/개', '단순 구조']
+    ]
+    add_table_rows(ws1, transmission_data)
+    
+    set_column_widths(ws1, [18, 20, 35, 25, 15, 15])
+
+    # ========== 2. 센서 시스템 시트 ==========
+    print("📊 2. 센서 시스템 시트 생성 중...")
+    ws2 = wb.create_sheet('2_센서시스템')
+    
+    current_row = add_category_header(ws2, '2. 센서 시스템 (Sensing System)', 1)
+    ws2.append([])
+    
+    # 2-1. 위치 센서
+    current_row = add_subcategory_header(ws2, '2-1. 위치 센서', 3)
+    add_table_header(ws2, ['센서 종류', '주요 스펙', '대표 제품', '인터페이스', '가격대 (USD)', '비고'])
+    
+    position_sensor_data = [
+        ['마그네틱 엔코더',
+         '• 분해능: 12-14bit\n• 정밀도: 0.022-0.088°\n• 크기: Ø10-15mm\n• 절대위치 측정',
+         '• AMS AS5048/AS5600\n• Allegro A1333\n• TI TLE5012B\n• Melexis MLX90363',
+         'I²C, SPI, PWM\nSSI, BiSS',
+         '$5-20',
+         '가장 많이 사용'],
+        ['광학 엔코더',
+         '• 분해능: 수천 PPR-16bit\n• 정밀도: < 0.01°\n• 크기: Ø15-25mm',
+         '• Avago HEDL/HEDS\n• Renishaw RESOLUTE\n• Heidenhain ECN/EQN',
+         'Quadrature A/B\nSSI, BiSS-C',
+         '$30-200',
+         '초고정밀'],
+        ['포텐셔미터',
+         '• 저항: 1-10kΩ\n• 선형도: ±1-3%\n• 크기: 10-20mm',
+         '• Bourns 3382/3590\n• Alps RK09/RK163\n• Vishay 157/534',
+         '아날로그 전압',
+         '$1-5',
+         '저가형']
+    ]
+    add_table_rows(ws2, position_sensor_data)
+    
+    # 2-2. 힘/토크 센서
+    ws2.append([])
+    current_row = add_subcategory_header(ws2, '2-2. 힘/토크 센서', ws2.max_row + 1)
+    add_table_header(ws2, ['센서 종류', '주요 스펙', '대표 제품/제조사', '측정 축수', '가격대 (USD)', '비고'])
+    
+    force_sensor_data = [
+        ['스트레인 게이지 F/T센서',
+         '• 측정범위: ±10-200N\n• 분해능: 0.01-0.1N\n• 정확도: 0.5-2% FS\n• 크기: Ø15-40mm',
+         '• ATI Nano17/25/43\n• OnRobot HEX-E QC\n• Weiss KMS 40\n• Robotiq FT 150/300',
+         '1-6축\n(Fx,Fy,Fz,Mx,My,Mz)',
+         '$500-3000',
+         '고정밀'],
+        ['FSR (압력 센서)',
+         '• 측정범위: 0.1-10N\n• 크기: 5×5-20×20mm\n• 두께: 0.2-0.5mm\n• 특징: 얇고 유연',
+         '• Interlink FSR 402/406\n• Tekscan FlexiForce\n• Sensitronics 시리즈',
+         '1축\n(수직력만)',
+         '$5-20',
+         '저가형'],
+        ['로드셀',
+         '• 측정범위: 1-100N\n• 정확도: 0.1-0.5% FS\n• 크기: 10×10×20mm',
+         '• Honeywell Model 31\n• TE Connectivity FX29\n• Measurement Specialties',
+         '1축\n(인장/압축)',
+         '$20-100',
+         '단축 측정']
+    ]
+    add_table_rows(ws2, force_sensor_data)
+    
+    # 2-3. 촉각 센서
+    ws2.append([])
+    current_row = add_subcategory_header(ws2, '2-3. 촉각 센서', ws2.max_row + 1)
+    add_table_header(ws2, ['센서 종류', '주요 스펙', '대표 제품/제조사', '해상도', '가격대 (USD)', '비고'])
+    
+    tactile_sensor_data = [
+        ['정전용량식 배열',
+         '• 해상도: 4×4-16×16 taxel\n• 샘플링: 100Hz-1kHz\n• 압력범위: 0.1-10N/taxel\n• 크기: 20×20-50×50mm',
+         '• Pressure Profile Systems\n• Tekscan 시리즈\n• SynTouch BioTac',
+         '16-256 taxels',
+         '$200-2000',
+         '압력 분포 측정'],
+        ['압전 센서',
+         '• 응답속도: < 1ms\n• 민감도: 5-50pC/N\n• 두께: 0.1-1mm\n• 대역폭: 0.1Hz-10kHz',
+         '• TE Connectivity DT 시리즈\n• Measurement Specialties\n• Piezo Systems',
+         '단일 포인트',
+         '$10-100',
+         '동적 힘 측정'],
+        ['광학 촉각 센서',
+         '• 해상도: 640×480 픽셀\n• 깊이감지: 0.1-2mm\n• 프레임율: 30-60fps\n• 크기: 15×15×25mm',
+         '• GelSight Mini/Digit\n• Meta Digit (Facebook)\n• Wonik Robotics 시리즈',
+         '수십만 픽셀',
+         '$500-2000',
+         '고해상도 텍스처']
+    ]
+    add_table_rows(ws2, tactile_sensor_data)
+    
+    set_column_widths(ws2, [20, 35, 35, 20, 15, 15])
+
+    # ========== 3. 전자 제어 시스템 시트 ==========
+    print("📊 3. 전자 제어 시스템 시트 생성 중...")
+    ws3 = wb.create_sheet('3_전자제어시스템')
+    
+    current_row = add_category_header(ws3, '3. 전자 제어 시스템 (Electronic Control)', 1)
+    ws3.append([])
+    
+    # 3-1. 메인 컨트롤러
+    current_row = add_subcategory_header(ws3, '3-1. 메인 컨트롤러', 3)
+    add_table_header(ws3, ['컨트롤러 종류', '주요 스펙', '대표 제품', '적용 용도', '가격대 (USD)', '비고'])
+    
+    controller_data = [
+        ['마이크로컨트롤러',
+         '• CPU: ARM Cortex-M4/M7\n• 클럭: 168-480MHz\n• Flash: 512KB-2MB\n• RAM: 128KB-1MB\n• PWM: 20+ 채널',
+         '• STM32F407/F767/H743\n• NXP i.MX RT1060\n• Teensy 4.0/4.1\n• Arduino Due',
+         '실시간 제어\n(1-2kHz 루프)',
+         '$10-50',
+         '저수준 제어'],
+        ['임베디드 SBC',
+         '• CPU: 쿼드코어 1.5-2GHz\n• RAM: 2-8GB\n• GPU: CUDA 지원\n• OS: Linux/Ubuntu',
+         '• NVIDIA Jetson Nano/Xavier\n• Raspberry Pi 4B\n• Intel NUC\n• Khadas VIM3',
+         '고수준 제어\nAI/비전 처리',
+         '$100-600',
+         '고수준 알고리즘']
+    ]
+    add_table_rows(ws3, controller_data)
+    
+    # 3-2. 모터 드라이버
+    ws3.append([])
+    current_row = add_subcategory_header(ws3, '3-2. 모터 드라이버', ws3.max_row + 1)
+    add_table_header(ws3, ['드라이버 종류', '주요 스펙', '대표 제품', '제어 방식', '가격대 (USD)', '비고'])
+    
+    driver_data = [
+        ['BLDC 드라이버',
+         '• 전압: 12-48V\n• 전류: 2-20A\n• PWM 주파수: 20-50kHz\n• 보호: 과전류/과열/과전압',
+         '• TI DRV8301/8305\n• ST L6234/L6230\n• Allegro A4960\n• Infineon TLE9879',
+         'FOC (Field Oriented)\n센서리스/홀센서',
+         '$5-30',
+         '고효율 제어'],
+        ['스테퍼 드라이버',
+         '• 전압: 8-35V\n• 전류: 1-3A\n• 마이크로스텝: 1/16-1/32\n• 인터페이스: Step/Dir',
+         '• Allegro A4988/A4983\n• TI DRV8825\n• Trinamic TMC2209\n• Oriental Motor CVD',
+         '마이크로스테핑\nStealthChop/SpreadCycle',
+         '$3-15',
+         '저가형']
+    ]
+    add_table_rows(ws3, driver_data)
+    
+    # 3-3. 통신 시스템
+    ws3.append([])
+    current_row = add_subcategory_header(ws3, '3-3. 통신 시스템', ws3.max_row + 1)
+    add_table_header(ws3, ['통신 방식', '주요 스펙', '대표 제품/칩셋', '적용 범위', '가격대 (USD)', '비고'])
+    
+    communication_data = [
+        ['CAN Bus',
+         '• 속도: 1Mbps (2.0B), 5-8Mbps (FD)\n• 거리: 최대 40m\n• 노드: 최대 110개\n• 특징: 실시간, 노이즈 강인성',
+         '• Microchip MCP2515/2517FD\n• NXP TJA1050/1443\n• TI SN65HVD230',
+         '손가락 간 통신\n메인 로봇과 통신',
+         '$2-8',
+         '가장 일반적'],
+        ['EtherCAT',
+         '• 속도: 100Mbps\n• 사이클: < 100μs\n• 동기화: ±1μs\n• 토폴로지: 링/스타',
+         '• Beckhoff ET1100/ET1200\n• Hilscher netX\n• Renesas R-IN32M3',
+         '고급 산업용\n고정밀 동기제어',
+         '$20-50',
+         '초고속 동기화'],
+        ['RS-485',
+         '• 속도: 115.2kbps-10Mbps\n• 거리: 최대 1.2km\n• 노드: 최대 32개\n• 특징: 장거리, 저비용',
+         '• Maxim MAX485/MAX3485\n• TI SN75176\n• Analog Devices ADM485',
+         '장거리 센서 통신\n다중 노드 연결',
+         '$1-5',
+         '장거리용']
+    ]
+    add_table_rows(ws3, communication_data)
+    
+    set_column_widths(ws3, [18, 35, 35, 20, 15, 15])
+
+    # ========== 4. 전원 관리 시스템 시트 ==========
+    print("📊 4. 전원 관리 시스템 시트 생성 중...")
+    ws4 = wb.create_sheet('4_전원관리시스템')
+    
+    current_row = add_category_header(ws4, '4. 전원 관리 시스템 (Power Management)', 1)
+    ws4.append([])
+    add_table_header(ws4, ['구성 요소', '주요 스펙', '대표 제품/규격', '용량/성능', '가격대 (USD)', '비고'])
+    
+    power_data = [
+        ['리튬 배터리',
+         '• 전압: 11.1V (3S), 14.8V (4S), 22.2V (6S)\n• 용량: 2000-5000mAh\n• 방전율: 20-50C\n• 타입: LiPo/Li-ion',
+         '• Turnigy/Tattu (LiPo)\n• Samsung/LG 18650 (Li-ion)\n• Panasonic NCR 시리즈',
+         '연속 방전:\n40-250A',
+         '$20-100',
+         '주 전원'],
+        ['DC-DC 컨버터',
+         '• 입력: 12-24V\n• 출력: 5V, 3.3V\n• 전류: 3-10A\n• 효율: 85-95%\n• 리플: < 50mV',
+         '• TI LM2596/TPS54331\n• Linear LT3045\n• Murata OKI-78SR\n• Recom R-785.0',
+         '출력 전력:\n15-50W',
+         '$3-15',
+         '전압 변환'],
+        ['배터리 관리 (BMS)',
+         '• 셀 수: 3-6S\n• 전류: 10-30A\n• 기능: 과충전/방전/전류/온도 보호\n• 밸런싱: 액티브/패시브',
+         '• Daly BMS 시리즈\n• TI bq76940\n• Analog Devices LTC6804\n• Orion BMS',
+         '보호 전류:\n20-50A',
+         '$10-50',
+         '안전 보호']
+    ]
+    add_table_rows(ws4, power_data)
+    
+    set_column_widths(ws4, [20, 35, 35, 18, 15, 15])
+
+    # ========== 5. 기계 구조 부품 시트 ==========
+    print("📊 5. 기계 구조 부품 시트 생성 중...")
+    ws5 = wb.create_sheet('5_기계구조부품')
+    
+    current_row = add_category_header(ws5, '5. 기계 구조 부품 (Mechanical Components)', 1)
+    ws5.append([])
+    
+    # 5-1. 프레임 및 하우징
+    current_row = add_subcategory_header(ws5, '5-1. 프레임 및 하우징', 3)
+    add_table_header(ws5, ['재질 종류', '주요 특성', '가공 방법', '적용 부위', '가격대 (USD/개)', '비고'])
+    
+    material_data = [
+        ['알루미늄 6061-T6',
+         '• 밀도: 2.7g/cm³\n• 인장강도: 310MPa\n• 가공성: 우수\n• 내식성: 양호',
+         'CNC 가공\n3D 프린팅 (SLM)',
+         '손바닥\n주요 프레임',
+         '$5-20',
+         '일반적'],
+        ['알루미늄 7075-T6',
+         '• 밀도: 2.81g/cm³\n• 인장강도: 572MPa\n• 경도: 높음\n• 가공성: 보통',
+         'CNC 가공',
+         '고하중 부위',
+         '$10-30',
+         '고강도'],
+        ['티타늄 Ti-6Al-4V',
+         '• 밀도: 4.43g/cm³\n• 인장강도: 950MPa\n• 내식성: 우수\n• 생체적합성: 우수',
+         'CNC 가공\nEBM/SLM',
+         '프리미엄 제품',
+         '$30-100',
+         '최고급'],
+        ['PEEK',
+         '• 인장강도: 100MPa\n• 내열성: 260°C\n• 내화학성: 우수\n• 절연성: 우수',
+         'CNC 가공\nFDM 프린팅',
+         '절연 필요 부위',
+         '$20-80',
+         '고성능 플라스틱'],
+        ['카본 파이버',
+         '• 인장강도: > 200MPa\n• 밀도: 1.6g/cm³\n• 강성: 매우 높음\n• 방향성: 있음',
+         '적층 성형\n3D 프린팅',
+         '경량화 필요 부위',
+         '$15-50',
+         '초경량']
+    ]
+    add_table_rows(ws5, material_data)
+    
+    # 5-2. 관절 및 베어링
+    ws5.append([])
+    current_row = add_subcategory_header(ws5, '5-2. 관절 및 베어링', ws5.max_row + 1)
+    add_table_header(ws5, ['베어링 종류', '주요 스펙', '대표 제품/규격', '하중 용량', '가격대 (USD)', '비고'])
+    
+    bearing_data = [
+        ['미니어처 볼베어링',
+         '• 내경: 2-10mm\n• 외경: 5-26mm\n• 두께: 2-8mm\n• 정밀도: ABEC-5 이상\n• 재질: 440C, Si₃N₄',
+         '• NSK/SKF 미니어처\n• NTN 소형 베어링\n• Timken/Schaeffler',
+         '동하중:\n50-500N',
+         '$2-20',
+         '가장 일반적'],
+        ['부시 베어링',
+         '• 내경: 3-12mm\n• 외경: 5-16mm\n• 마찰계수: 0.05-0.15\n• 자기윤활: 가능',
+         '• Iglidur (igus)\n• Oilon (Garlock)\n• DU 부시 (청동+PTFE)',
+         '하중:\n100-1000N/cm²',
+         '$1-10',
+         '무급유'],
+        ['스러스트 베어링',
+         '• 내경: 3-8mm\n• 두께: 2-4mm\n• 축방향 하중 전용',
+         '• INA/FAG 시리즈\n• NTN 스러스트',
+         '축하중:\n100-300N',
+         '$3-15',
+         '축방향 하중']
+    ]
+    add_table_rows(ws5, bearing_data)
+    
+    # 5-3. 체결 및 연결 부품
+    ws5.append([])
+    current_row = add_subcategory_header(ws5, '5-3. 체결 및 연결 부품', ws5.max_row + 1)
+    add_table_header(ws5, ['부품 종류', '규격/스펙', '재질', '용도', '가격대 (USD)', '비고'])
+    
+    fastener_data = [
+        ['정밀 나사',
+         '• 규격: M1.6, M2, M2.5, M3\n• 길이: 4-20mm\n• 피치: 표준/세밀 나사\n• 헤드: 육각소켓, 십자',
+         '스테인리스 304/316\n티타늄 (고급형)',
+         '구조체 고정\n패널 체결',
+         '$0.1-1',
+         '대량 필요'],
+        ['샤프트 커플링',
+         '• 보어: 2-6mm\n• 외경: 4-12mm\n• 타입: 리지드/플렉시블\n• 동심도: ±0.02mm',
+         '알루미늄, 스테인리스\n델린 (절연형)',
+         '모터-기어박스 연결\n축 연결',
+         '$3-15',
+         '정렬 중요'],
+        ['전기 커넥터',
+         '• JST-XH/PH: 2-8핀, 피치 1.25-2.5mm\n• Molex Micro-Fit: 2-12핀, 3mm 피치\n• Hirose DF13: 1.25mm 피치\n• 정격: 1-5A',
+         '플라스틱 하우징\n구리/금도금 단자',
+         '센서 연결\n전원 분배',
+         '$0.2-5',
+         '규격 통일']
+    ]
+    add_table_rows(ws5, fastener_data)
+    
+    set_column_widths(ws5, [20, 35, 25, 20, 18, 15])
+
+    # ========== 6. 보조 부품 및 안전 장치 시트 ==========
+    print("📊 6. 보조 부품 및 안전 장치 시트 생성 중...")
+    ws6 = wb.create_sheet('6_보조부품_안전장치')
+    
+    current_row = add_category_header(ws6, '6. 보조 부품 및 안전 장치', 1)
+    ws6.append([])
+    add_table_header(ws6, ['부품 종류', '주요 스펙', '대표 제품', '기능', '가격대 (USD)', '비고'])
+    
+    auxiliary_data = [
+        ['리미트 스위치',
+         '• 접점용량: 1-5A\n• 크기: 5×10mm\n• 동작력: 0.5-2N\n• 타입: NO/NC',
+         'Omron D2F\nHoneywell 시리즈\nCherry D44X',
+         '관절 한계 감지\n비상 정지',
+         '$1-5',
+         '안전 필수'],
+        ['비상 정지 스위치',
+         '• 래치형 버튼\n• 접점: 2NO+2NC\n• 정격: 10A/250V\n• 색상: 빨간색',
+         'Schneider XB7\nABB CE4T\nSiemens 3SB3',
+         '전체 시스템 정지\n안전 확보',
+         '$10-30',
+         '필수 안전장치'],
+        ['퓨즈/회로차단기',
+         '• 정격전류: 1-20A\n• 차단전압: 32V DC\n• 타입: 세라믹/유리관\n• 응답시간: ms급',
+         'Littelfuse 시리즈\nBussmann/Eaton\nPhoenix Contact',
+         '과전류 보호\n합선 방지',
+         '$1-10',
+         '각 회로별 필요'],
+        ['방열판',
+         '• 크기: 10×10-30×30mm\n• 열저항: 5-20°C/W\n• 재질: 알루미늄\n• 핀 구조: 다양',
+         'Aavid Thermalloy\nFischer Elektronik\nWakefield-Vette',
+         '모터/드라이버 냉각\n온도 안정화',
+         '$1-5',
+         '발열 부품용']
+    ]
+    add_table_rows(ws6, auxiliary_data)
+    
+    set_column_widths(ws6, [20, 30, 25, 20, 15, 15])
+
+    # ========== 7. 시스템 통합 가이드 시트 ==========
+    print("📊 7. 시스템 통합 가이드 시트 생성 중...")
+    ws7 = wb.create_sheet('7_시스템통합가이드')
+    
+    current_row = add_category_header(ws7, '7. 시스템 통합 가이드', 1)
+    ws7.append([])
+    
+    current_row = add_subcategory_header(ws7, '성능 등급별 부품 선택 가이드', 3)
+    add_table_header(ws7, ['등급', '구동계', '센서', '제어', '예상 비용'])
+    
+    integration_data = [
+        ['프로토타입/연구용',
+         '• 스테퍼 모터\n• 유성 기어박스\n• 3D 프린팅 구조',
+         '• 포텐셔미터\n• FSR 센서',
+         '• Arduino/STM32\n• USB 통신',
+         '$3,000-8,000'],
+        ['상용 제품급',
+         '• BLDC 모터\n• 정밀 유성 기어\n• 알루미늄 CNC 구조',
+         '• 마그네틱 엔코더\n• 1축 힘센서\n• 정전용량식 촉각',
+         '• 전용 MCU\n• CAN 통신',
+         '$15,000-30,000'],
+        ['고급 연구용',
+         '• 정밀 BLDC\n• 하모닉 드라이브\n• 티타늄 구조',
+         '• 광학 엔코더\n• 6축 F/T센서\n• 광학 촉각센서',
+         '• 고성능 MCU+SBC\n• EtherCAT 통신',
+         '$50,000-100,000']
+    ]
+    add_table_rows(ws7, integration_data)
+    
+    # 행 높이 조정
+    for row_num in range(5, 8):  # 데이터 행들
+        ws7.row_dimensions[row_num].height = 60
+    
+    ws7.append([])
+    current_row = add_subcategory_header(ws7, '주요 고려사항', ws7.max_row + 1)
+    add_table_header(ws7, ['항목', '설명', '', '', ''])
+    
+    consideration_data = [
+        ['전기적 호환성', '모터와 드라이버의 전압/전류 매칭 필수, 배터리 용량 충분히 확보', '', '', ''],
+        ['제어 주기', '센서 샘플링 속도 > 제어 주기 > 통신 주기 순으로 설계', '', '', ''],
+        ['기계적 강도', '최대 토크의 2-3배 안전계수 적용, 피로 수명 고려', '', '', ''],
+        ['열관리', '연속 동작 시 온도 상승 고려, 방열 설계 필수', '', '', ''],
+        ['안전 시스템', '비상 정지, 과부하 보호, 위치 제한 등 다층 안전장치', '', '', '']
+    ]
+    
+    for row_data in consideration_data:
+        ws7.append(row_data)
+        # B열부터 E열까지 병합
+        ws7.merge_cells(f'B{ws7.max_row}:E{ws7.max_row}')
+        for cell in ws7[ws7.max_row]:
+            cell.font = normal_font
+            cell.alignment = left_alignment
+            cell.border = thin_border
+        ws7.row_dimensions[ws7.max_row].height = 30
+    
+    set_column_widths(ws7, [20, 30, 25, 25, 20])
+
+    # ========== 요약 시트 추가 ==========
+    print("📊 요약 시트 생성 중...")
+    ws_summary = wb.create_sheet('0_요약정보', 0)  # 첫 번째 시트로 삽입
+    
+    # 요약 정보
+    summary_info = [
+        ['문서 제목', '모터 구동 방식 휴머노이드 로봇 손 BOM (Bill of Materials)'],
+        ['생성 날짜', datetime.now().strftime('%Y년 %m월 %d일')],
+        ['버전', 'v1.0'],
+        ['', ''],
+        ['시트 구성', ''],
+        ['1_구동시스템', '전기 모터, 감속기, 동력 전달 메커니즘'],
+        ['2_센서시스템', '위치 센서, 힘/토크 센서, 촉각 센서'],
+        ['3_전자제어시스템', '컨트롤러, 모터 드라이버, 통신 시스템'],
+        ['4_전원관리시스템', '배터리, DC-DC 컨버터, BMS'],
+        ['5_기계구조부품', '프레임 재질, 베어링, 체결 부품'],
+        ['6_보조부품_안전장치', '리미트 스위치, 비상 정지, 퓨즈, 방열판'],
+        ['7_시스템통합가이드', '성능 등급별 선택 가이드, 고려사항'],
+        ['', ''],
+        ['주의사항', '• 가격은 2024년 기준 참고용입니다'],
+        ['', '• 실제 구매 시 최신 가격을 확인하세요'],
+        ['', '• 공급업체별로 스펙이 다를 수 있습니다'],
+        ['', '• 시스템 통합 시 호환성을 반드시 확인하세요']
+    ]
+    
+    for row_data in summary_info:
+        ws_summary.append(row_data)
+        if row_data[0] == '문서 제목':
+            ws_summary[ws_summary.max_row][0].font = Font(name='맑은 고딕', size=14, bold=True)
+            ws_summary[ws_summary.max_row][1].font = Font(name='맑은 고딕', size=14, bold=True)
+        elif row_data[0] in ['시트 구성', '주의사항']:
+            ws_summary[ws_summary.max_row][0].font = Font(name='맑은 고딕', size=12, bold=True, color='4472C4')
+        else:
+            for cell in ws_summary[ws_summary.max_row]:
+                cell.font = Font(name='맑은 고딕', size=10)
+                cell.alignment = left_alignment
+    
+    set_column_widths(ws_summary, [25, 60])
+
+    # 파일 저장
+    filename = f'Robot_Hand_Motor_Driven_BOM_{datetime.now().strftime("%Y%m%d")}.xlsx'
+    wb.save(filename)
+    
+    print(f"✅ 엑셀 파일이 성공적으로 생성되었습니다: {filename}")
+    print(f"📊 총 {len(wb.sheetnames)}개의 시트가 포함되어 있습니다:")
+    for i, sheet_name in enumerate(wb.sheetnames, 1):
+        print(f"   {i}. {sheet_name}")
+    print(f"\n💡 파일을 열어서 각 시트의 상세한 부품 정보를 확인하세요!")
+    
+    return filename
+
+if __name__ == "__main__":
+    try:
+        filename = create_robot_hand_bom()
+        print(f"\n🎉 BOM 생성이 완료되었습니다!")
+        print(f"📁 파일 위치: {filename}")
+    except Exception as e:
+        print(f"❌ 오류가 발생했습니다: {e}")
+        print("💡 pandas와 openpyxl이 설치되어 있는지 확인하세요.")
+        print("   설치 명령어: pip install pandas openpyxl")
