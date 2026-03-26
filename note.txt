@@ -5,3 +5,6 @@ High-Level Control (Grasp Planning)- Object Recognition- 6D Pose Estimation- Reg
 Control HW / SW
 Control PC (EtherCAT Master)- EtherCAT Communication with Palm Circuit: Joint command (position / torque), Sensor feedback (encoder, vision, tactile) 
 Real-time Control SW- RTOS- ROS2: Hardware interface, Custom hand controller
+
+
+帕西尼感知科技
