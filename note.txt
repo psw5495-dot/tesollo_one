@@ -1,10 +1,3 @@
-Low-Level Control (Actuator Control)- Actuator Control: 위치, 속도, 전류(토크)
-Mid-Level Control (Grasp Control)- Control Algorithm : Trajectory Generation (Forward / Inverse Kinematics) : Position Control (Cartesian Position Control / Joint Position Control) : Force Control (Cartesian Force Control / Joint Torque Control)  Tactile Sensor Feedback : Friction / Backlash Compensation- Contact detect  : Multi-Modal Sensor Feedback- Control Bandwidth  : Actuator Control Frequency  : Sensor Update Rate
-High-Level Control (Grasp Planning)- Object Recognition- 6D Pose Estimation- Regrasp Planning
 
-Control HW / SW
-Control PC (EtherCAT Master)- EtherCAT Communication with Palm Circuit: Joint command (position / torque), Sensor feedback (encoder, vision, tactile) 
-Real-time Control SW- RTOS- ROS2: Hardware interface, Custom hand controller
-
-
-帕西尼感知科技
+우리 회사가 타사와 협력하여 humanoid robot hand를 개발하려고 해. 아래는 control & SW 부문에서의 계획인데 세부적으로 계획안을 짜줘. 참고로 CLOiD는 우리 회사의 humanoid robot의 이름이야.
+Initial Program Set-up(for practices) -> Data Pipeline Set-up (Incl. Tactile sensor data pre-processing, control algorithm) -> Hand Sub-system Construction System Integration on CLOiD
