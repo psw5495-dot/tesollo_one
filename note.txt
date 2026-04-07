@@ -1,759 +1,140 @@
+Paxini와의 로봇 핸드 협업 회의 요약
 
+회의 배경 및 개요
 
+이번 회의는 로봇 핸드 제조사와 Paxini 간의 전략적 파트너십을 논의하는 자리였습니다. 2026년까지 약 1,000대 규모의 대량 양산을 목표로 하는 촉박한 일정 하에서, 기존 제품 활용과 신규 개발이라는 두 가지 주요 협업 방향이 집중적으로 검토되었습니다. 음성 인식의 기술적 한계로 인해 일부 내용에 불확실성이 있음을 사전에 밝혀둡니다.
 
+프로젝트 1: 기존 로봇 핸드 기반 협업
 
-발화자 1  (00:06)
-Yes, I have checked this page. How can you please give me it? 
+알고리즘 및 소프트웨어 지원 범위
 
-발화자 2  (00:22)
-In the first version of this movie Xi jinp. 
+Paxini 측은 기존 로봇 시스템에 제조사의 핸드를 통합하기 위해 다음과 같은 지원을 요청했습니다:
+- 캘리브레이션 장비 및 절차 지원
+- 제어 알고리즘 소프트웨어 패키지 제공
+- 비전 시스템과 핸드 제어의 연동 방안
+- 특수 작업(Special Operations)을 위한 맞춤형 알고리즘 개발
 
-발화자 1  (00:47)
-We start on the first project. Changes in the existing machines. So I have a few questions and we can discuss here. 
+제조사 측 지원 방안
 
-발화자 1  (01:01)
-Personally. I see from this task, so it's a contact. It is possible. 
+제조사는 기본적으로 SDK(Software Development Kit) 및 API 제공 방식을 제안했습니다. 완전한 오픈소스가 아니므로 지원 범위와 기술 문서 공개 수준을 계약 전에 명확히 정의해야 한다고 강조했습니다. 추가로 다음과 같은 지원이 가능합니다:
+- 모델 학습을 위한 데이터 수집 및 훈련 지원
+- 기본적인 그리핑 작업의 경우 약 3개월 내 알고리즘 개발 가능
+- 복잡한 장기 시퀀스 작업은 더 긴 개발 기간과 대규모 데이터가 필요
 
-발화자 3  (01:21)
-Thank you so 
+프로젝트 2: 신규 로봇 핸드 공동 개발
 
-발화자 1  (01:23)
-What can we help from these 
+개발 방식 선택지
 
-발화자 2  (01:27)
-And then 
+제조사는 두 가지 개발 접근법을 제시했습니다:
 
-발화자 2  (01:46)
-We are planning to use our growth 
+완전 신규 설계 방식:
+- 컨셉 및 기능 아키텍처 설계: 약 2개월
+- 첫 번째 프로토타입 완성: 총 6개월
+- IP 공유 구조 및 복잡한 계약 조건 필요
 
-발화자 1  (01:50)
-And then you can 
+기존 플랫폼 커스터마이징 방식 (권장):
+- 곧 출시될 신제품 라인업 기반 맞춤화
+- 센서 추가, 외형 변경, 파라미터 조정 등
+- 개발 기간 단축 및 비용 절감 효과
+- 이미 검증된 기술 플랫폼 활용
 
-발화자 2  (01:55)
-If you have any crowds that you can begin 
+신제품 라인업 소개
 
-발화자 1  (02:02)
-So you need us to like previousness and assistance on the calibration equipment and also the algorithm software that software doesn' 
+제조사는 기존 제품을 대체할 두 가지 새로운 핸드를 소개했습니다:
 
-발화자 3  (02:19)
-The control of the handsome system, as you know, the mechanical vision for this isn't we preferred our network? The control power. So if you can possibly support how to connect your hand to this hands. 
+1. 엔트리급 모델 (4월 말 출시 예정)
+   - 5개 손가락 끝단에 기본 센서 탑재
+   - 소형, 경량, 고강도 설계
+   - 비용 효율적인 포지셔닝
 
-발화자 3  (02:46)
-Absolutely, we need to support healthy supporting the world. 
+2. 고급형 모델 (7-8월 출시 예정)
+   - 19 자유도(DOF) 지원
+   - 차세대 촉각 센서(Gen2) 탑재
+   - 기존 DH-13, PXF 모델 대체 목적
+   - 향후 Pro 버전에서는 온보드 컴퓨팅 파워 강화 예정
 
-발화자 1  (02:52)
-Okay, I understand so I personally. We will also put it back now. You will use our hands searching for our new hands. 
+지적재산권(IP) 및 제조 권한
 
-발화자 1  (03:03)
-We're just about to release a new hand in the end of April. Then, this surgeonry and techno sensors and There's no social research reform. So please change the music instead of the genetic part of this music. 
+IP 소유 구조
 
-발화자 1  (03:25)
-Thank you so much. I'm not sure that's So first meetings call the handyworld also given it 
+이 부분이 협업의 핵심 쟁점으로 부각되었습니다:
 
-발화자 3  (03:56)
-That point is not an important point. That our focus area is due to improvement. I mean, this is this So odds are the reason. 
+커스터마이징 방식의 경우:
+- 핵심 기술 및 설계 IP는 제조사 보유
+- Paxini는 해당 커스텀 모델에 대한 독점 사용권 획득
+- 제조는 제조사가 단독 수행 (타 업체 위탁 제조 불가)
 
-발화자 3  (04:11)
-I'll give you focus on how to control its de. So we are talking. We already talk about it right now. 
+공동 개발 방식의 경우:
+- IP 공유 비율에 따라 개발비, 단가, 라이선스 구조 결정
+- 시장 구분(지역별, 애플리케이션별) 권한 분배 가능
+- 더 복잡한 계약 조건 및 협상 필요
 
-발화자 3  (04:24)
-We need to some operations and special operations. We may have some concept to help control our hands experience. It's always experimental details about that. 
+제조사는 어떤 방식을 선택하든 모든 조건을 계약서에 구체적으로 명시해야 한다고 여러 차례 강조했습니다.
 
-발화자 3  (04:35)
-And if you can, if you can make some algorithmic deals Thank you so much. We need to collaborate into this board. 
+개발비용, MOQ, 양산 계획
 
-발화자 1  (05:00)
-Yes, I can give you some more information about that. Some presentation. So we can answer one by one. 
+비용 구조
 
-발화자 1  (05:13)
-So the first project, so we'll provide the hand most of the algorithm support for you to the kind of operation. I'm also about that. 
+제조사는 다음과 같은 개발비 구조를 제안했습니다:
+- 초기 개발비: 컨셉 설계, 시제품 제작, 테스트 비용 선청구
+- 양산 후 환급: 일정 수량(MOQ) 달성 시 개발비 일부 환급 또는 단가 할인
+- 이는 제조사의 초기 R&D 투자 리스크를 관리하기 위한 구조
 
-발화자 1  (05:52)
-Another thing is that's 
+생산 계획 및 재고 관리
 
-발화자 1  (06:09)
-The algorithms are not good at them. I think it's a sacrifice. 
+2026년까지 약 1,000세트(2,000개) 생산 목표를 달성하기 위해:
+- 사전 부품 확보 및 재고 계획 수립 필수
+- 표준 부품과 커스텀 부품의 최적 조합으로 비용 효율성 추구
+- 리드타임: 표준 제품 1주일, 신제품 초기에는 더 긴 준비 기간 필요
+- MOQ 및 배치별 생산 수량을 계약 단계에서 명확히 정의 필요
 
-발화자 3  (06:23)
-Yes, this is usually the most important thing in the 
+기술 사양 및 구동 방식
 
-발화자 1  (06:32)
-There's some training at our sight. Do you need us to do the same training? You know, in our site for the model or something. 
+구동 메커니즘 비교
 
-발화자 3  (06:46)
-Yes, we will train this task violence, including 
+제조사는 자사 제품의 기술적 우위를 다음과 같이 설명했습니다:
 
-발화자 3  (07:07)
-This is a telegraph, so a telephone We need to find some vintage accounts in the process of learning. If we want to data, we will look for some opportunity for our space is just focused on the hands meaning, it's 
+| 구동 방식 | 장점 | 단점 |
+|----------|------|------|
+| 텐던(Tendon) 구동 | 중간 수준의 크기/무게, 높은 자유도, 적절한 내구성 | 백드라이버빌리티 제한 |
+| 기어 구동 | 높은 정밀도 | 무겁고 복잡함 |
+| 공압 구동 | 높은 출력 | 시스템 복잡성, 소음 |
 
-발화자 1  (07:45)
-So normally the customers work with our hands. We will provide the SDK or APIs. We will use to develop a confusing messing up because it's not fully open source. 
+제조사의 텐던 구동 방식은 DOF 확장성, 센서 통합 용이성, 비용 효율성 측면에서 균형잡힌 솔루션을 제공한다고 강조했습니다.
 
-발화자 1  (07:59)
-So as you stage, we have to make it clear. So we provide the SDK or DPI so we can develop products evil. If you want more quickly, you have to then have no purpose for some invite you think that we need to give you a full need for resources, or something. 
+센서 기술
 
-발화자 1  (08:18)
-We have to have snow. Analyze for our standard precision when you need to provide SDP or ETI mean that support is pleased. 
+- Gen2 촉각 센서: 최신 버전으로 업그레이드 예정
+- 근접 센서(Proximity Sensor): 새로운 제품군으로 개발 중
+- 손가락별 센서 배치 및 통신 주파수(20Hz) 등 기술 사양 논의
 
-발화자 2  (08:54)
-I'm just in the exchange between Omicron. 
+향후 일정 및 액션 아이템
 
-발화자 1  (09:14)
-1 day I understand 
+단기 일정 (4월)
 
-발화자 1  (09:30)
-Okay, then we'll move to the second project joint development of the new robotic camp optimizable customer required. So please have 2 tax mobile dynamic, parallel lines. So we can see my mind So do you already have a design or we have to design together? 
+- 4월 13-17일: 독일 출장 중 오프라인 미팅 예정
+- 요구사항 최종 확정 및 기술 스펙 정리
+- 공식 견적서(Quotation) 제공
 
-발화자 1  (10:00)
-New ones? One 
+중장기 로드맵
 
-발화자 3  (10:03)
-I've been watching the unive. 
+1. 즉시: 요구사항 및 계약 조건 정리 (양측)
+2. 2개월 내: 컨셉 설계 및 기술 아키텍처 확정
+3. 6개월 내: 첫 프로토타입 제작 및 테스트
+4. 2025-2026년: 양산 체계 구축 및 대량 생산
 
-발화자 1  (10:05)
-Glad you want a company. So currently the world have any leadership designs. 
+핵심 액션 아이템
 
-발화자 3  (10:13)
-No device 
+Paxini 측:
+- 구체적인 기술 요구사항 문서화
+- 연간 생산 계획 및 MOQ 확정
+- 예산 및 일정 프레임워크 제시
 
+제조사 측:
+- 공식 제안서 및 견적서 준비
+- IP 조건 및 계약 조건 초안 작성
+- 기술 문서 공개 범위 정의
 
-발화자 1  (00:01)
-Richard, I have some suggestions, and also 
+결론
 
-발화자 1  (00:17)
-this one is the decision to discuss this time for I'm all about the concept and the function of architectures, so this will take About 2 months to have the initial delightful. And then for a complete, maybe the first prototype in the last 6 months, 6 months is, it's And so this time, it's myself before you. And this is from our experiences, because we've just released 2 minutes because we've also developed hands in design. 
-
-발화자 1  (01:00)
-We design and all the concepts. Also, the complex overall observes, and we also produce, and so we have the experience of It's also a time right now. 24 concept design and 6 months is needed for the first prototype experience. 
-
-발화자 1  (01:26)
-Maybe that's what you want to 
-
-발화자 2  (01:31)
-If you share the reward, you can be ready. 
-
-발화자 1  (02:02)
-I'm so that's what I want to discuss music about this second. The second week that customers know our current and it's Red, sir, from our new U and red view versions. So now we have 2 new versions. 
-
-발화자 1  (02:19)
-So the first one is that freedom is freedom and specific factors. Haven't only The 5 fingertips have been on the possibility of sensors. But this version, we can just otherwise we have to customize for you. 
-
-발화자 1  (02:48)
-So we can just add more tech questions for you. It's okay, but we also want to take a more time if I'm not sure if this can be 1%. It's sometimes your requirements a later. 
-
-발화자 1  (03:02)
-I will show some of the specifications we've almost mentioned so the first patch in the end of April, the small Colony and the next patchwork between you. So this is almost ready production, and it's also very optimizing, improved and a strong hand but it's very cosmetic. And neither can deserve very much mining, very much 19 is A So what we'll be ready along July, and I think should be ready at August. 
-
-발화자 1  (03:35)
-This one with more degree of freedom, 19° of freedom and with more sensors. So this is what we use to replace the dh. 13 GM H13 is used to replace the other hand which is called pxf. 
-
-발화자 1  (03:56)
-Hype is very resolving China of how this is very possible. So we perhaps have to advance at these stage next year. We're going to have like, I think we will. 
-
-발화자 1  (04:09)
-Also, if you send me the question rate about model mass program maps about the new handswrite, so we will have these 2 motions, new hands to replace them. The old ones and the next year we will have pro versions pro version proportion. We will have the future of these more outcomes So about that will be between 2050%. 
-
-발화자 1  (04:34)
-Yeah, let's see next year. I think it's So involved in the computing power of the world 
-
-발화자 1  (04:58)
-Now, many like the normal basic ones are good for And we also have another Can you products will be the search version? Police of 4° of freedom focus on opportunity, 1°, also in the future. So So the second Africa is that from customized over our new versions in existing ones instead of using a desire, complete new ones. 
-
-발화자 1  (05:39)
-You can observe that this way will be. I think a tabloid show and we have worried not all the development and this all the books and the deal. I think that it's more complied with your time framework. 
-
-발화자 3  (05:58)
-Walter is specific reasoned to introduce the people who need to be unionists. 
-
-발화자 1  (06:12)
-Researchers seem to be 
-
-발화자 3  (06:14)
-And then And then later. 
-
-발화자 1  (06:22)
-It's pretty wild until I think it's It's like teaching to we want to let customers have worked on And they have to wind the single one, so they have some minimum ones. And also have one. So please. 
-
-발화자 1  (06:41)
-So that it does So I think now we are projecting one individual leading to four different applications. You might also need different versions of hands. So that's the same solution. 
-
-발화자 1  (07:09)
-It's This is good. So that's an algorithm that we will provide customers some more opportunity. And so that they can task from the cost angle of cellularity. 
-
-발화자 1  (07:37)
-We have always spent our own views. The branch of the models. Now I think once the 2 version releases, so we'll have more time to give you A I should give some research and need to be done 
-
-발화자 2  (08:20)
-Thank you so much. 
-
-발화자 2  (08:35)
-Can you help me go home? Hi Bixby opening up the Xi. 
-
-발화자 3  (08:52)
-Do you have any second materials that you can't share with you? So 
-
-발화자 1  (09:00)
-Opportunity about 19 and a 1 creativity sooner. This is actually this is the first design but now it's the parameters, not a fix yet, so in the future. Please tell me. 
-
-
-발화자 1  (00:02)
-Slide Danielle, so finally, I'm able to share with you like this weekend and 5 papers. Please camera motional and also the Like, I can mention the fingertips my fingertips match the textile sensor So this is an entry level The performance of that design And ladies showing these sensors, search integration, the sensor is the likelihoo. Generation 2 sensors, but now that you can use a search version like how sensors, and that's what the key imagining. 
-
-발화자 1  (00:58)
-I mentioned my team. I will be more sensors, more sensors and more equilibrium freedom. So we can check the specifications. 
-
-발화자 1  (01:05)
-So we can see The observation like a 15th, like 7 and 8 passing the eighth And these are quite the designs bigger. So standard in the 20 years, one source This is one of the things 
-
-발화자 2  (01:29)
-I'm using the same 
-
-발화자 1  (01:35)
-Yes, it says I have this model using our standard sensor this is always customized sensor for please and please mention some standard sensors. And this is a very special design basic In my lifetime, also in a lot of The Times 
-
-발화자 2  (02:05)
-So, if you guys aren't concerned, but it's 
-
-발화자 1  (02:14)
-It's funny. 
-
-발화자 2  (02:17)
-The estimation I want to bring 
-
-발화자 1  (02:18)
-Yes, yes, on camera. Yes. Now, where are you going? 
-
-발화자 1  (02:24)
-This is our removal and design. There are other customers. The other superiority makeup handed when the camera does X on them. 
-
-발화자 1  (02:31)
-And here's the answer. Yeah, please. So sometimes it has some influences So this week we think we have the first one to have these kind of removal pants. 
-
-발화자 1  (02:43)
-Just so that's So like they are searching what's already in 2024. As so we said widely to material production technology from us At this hand it's only 5 kg preoccupy. And about here, I don't have the information about this software science. 
-
-발화자 1  (03:12)
-But I will tell the software, also increase the amount of more functionally. Here's And the gemji 19, we would have minded delivery O fridayo. So I've been one of the things 
-
-발화자 3  (03:37)
-How many years from this year island is 
-
-발화자 1  (03:53)
-It's a capitalist 154 here. 
-
-발화자 1  (04:14)
-That's accept the sum the out there. Fingers will have like 3, so they're cooking. Total Please see the 7 for the 5 or 7. 
-
-발화자 1  (04:28)
-I'd like to check 
-
-발화자 1  (04:40)
-I have not got to tell you a final specification. Alright, maybe you're right. Sorry, right? 
-
-발화자 1  (04:51)
-And also these are 5, so it's a one7th, and this one2, so we can do the one9th. We can only distinguish 
-
-발화자 1  (05:24)
-So I suggested that you can consider from 
-
-발화자 1  (05:53)
-I think today we can discuss in after we will have movement And how we can operate in this case Yes, personally, you can see that searching is the only 4 papers. 4 chambers and the only maximum, like 16° of breeding, also showing it so much. These are bankers are similar to this thing. 
-
-발화자 1  (06:37)
-So the hands are also smooth. And also, the sensor will use us certain versions of sensory genes and the depth searching. The Gen. 
-
-발화자 1  (06:46)
-2 sensor is very different, very different The gym 2 sensory is a last version. Sensory is the latest version because it's I mean, that's an interesting reason. A quick diversion from 2 backgrounds and it is possible So we have to have the changes that Samsung is such A 
-
-발화자 3  (07:24)
-Sors. 
-
-발화자 1  (07:25)
-So there's a chili beams And the end of 
-
-발화자 3  (07:49)
-I mean, so you have the, you are like behavioral reasons. Some new handshakes. There's a tactile detail. 
-
-발화자 3  (08:03)
-Is it possible to make the new hands of formal powerful hopeful? 
-
-발화자 1  (08:08)
-I don't think exclusive for you like so. That's also something I would like to discuss with both the IP and the architecture for the right student. Right? 
-
-발화자 1  (08:21)
-So personally, if we design, if you customize from our hands for our current hands means we can check the some, you know, forms that the colors or some. Parameters, the intellectual property rights and the technology is still We only authorized to use this kind of hand for yourself. This kind but the hand will be manufactured by us. 
-
-발화자 1  (08:52)
-And you cannot just take the hand make other manufacturing manufacturing plants. So at least ahead, let's class. My hand can be absolutely, and we are also well be excellent. 
-
-발화자 1  (09:06)
-Explicit manufacturer and another thing is I think we've designed a new community. The first proposal we have discussed. So from concept to the final product. 
-
-발화자 1  (09:24)
-So that we can discuss if the top the IP and the introduction will rise to whom if we wanted to ask that I wanted, I want the IBM and also the intellectual funds we can share just different means that positioning differential price will be difficult. So I think those results here might be more That's 
-
-발화자 3  (10:00)
-Location. 
-
-발화자 1  (10:01)
-It's Pizza and also hotspot. 
-
-
-발화자 1  (00:00)
-Then, automatically adequate manufacturer records. We hope that we can be excellent to each other. So as We can discuss this that has a real good idea, and also we want to own ipm. 
-
-발화자 1  (00:24)
-Direction provides many work for the high price. If we share that I can the internet price and high negative cheap, cheaper price, and also about manufacturing. From our current vice, not only at their own debt. 
-
-발화자 1  (00:45)
-We are still only border. IPM investor device. We only have to authorize its service But for any customers, product will not sell other service packages in the rooms, exclusively musical products. 
-
-발화자 1  (01:02)
-And these are willing to be Specifically in the contracts 
-
-발화자 2  (01:21)
-Excuse me, Jeremy. It's mountain design by axioms, mechanical engineering, internal term. 
-
-발화자 1  (01:29)
-Yes, we for the concept of all the components designed for design process. Are we also some of the components of our arms suppliers in terms of variable supply chain? 
-
-발화자 1  (02:29)
-So this is It was our second project. So we need to decide which kind of cooperation would like to visit. You can or to customize more about carbon, possibly have to define the IP. 
-
-발화자 1  (02:48)
-And the intellectual provides in one advance And also part of the manufacturing 
-
-발화자 1  (03:09)
-So this is a time So you are happy you plan to have the first emotion on the more than 815 more than 15015%. 
-
-발화자 1  (03:56)
-I think this time it's a Jake. So before making you get the first-hand Vs the first pair of hands and it's And then there's some tests I mentioned our production problems. 
-
-발화자 1  (04:29)
-In that part you stay in the June 23rd. Yeah, you mentioned about the 4. So you will see SM structure. 
-
-발화자 1  (04:41)
-So here's I'm not going to say it. Normally, in that lesson we need to discuss about what kind of materials and how different should we provide documents and information? And just like the we have this example which is not fully important. 
-
-발화자 1  (05:06)
-So we understand for some strategic renewables more differently sources, that's a you know, different occasion like this is also normally equal to customization sensor or hands more criminal robots. We provide a kind of limited development. So our customer, because we have to protect our intellectual property rights. 
-
-발화자 1  (05:40)
-But if you need us to provide deeply likely the hope of the product for all the end, you know, specification of the product you have to discuss with, that's an advanced recycling agreements, that's also different about quotations. Some normal offer or definitely offer people in the software SDK, and also the small cars that we need to discover that in the last minute, how to prove that it could 
-
-발화자 1  (06:48)
-We have experiences with other customers. We do the customization plus we have a customer customized clas. It's also like it's a user and where the manufacturer and very beginning. 
-
-발화자 1  (07:05)
-We don't have A. We never discover about what kind of scoop of the technical documents and specifications we provide, and after they get the robot, and they say, I need more differently, possible governments, but that's something we have this time before and not including competition, so we have some issues from this kind of piece and broad experiments, all of the you know, requirements should be discussed very clearly before we start the project. 
-
-발화자 3  (07:41)
-I'm 
-
-발화자 1  (07:56)
-Okay, thank you so much. 
-
-발화자 3  (07:57)
-We can practice watch together. Bixby want to use the bookstore? 
-
-발화자 1  (08:15)
-So ukra. To us, I think The top frame and the Euro are I really understand from your period of timeframe and your plants. Yeah, so you need to finalize the governments of the contracts of the requirements about the, you know, that's Talk to us about this. 
-
-발화자 1  (08:44)
-What are you saying? We need to Specifically, it's put into the contract of central bank. 
-
-발화자 1  (09:29)
-Then, I think if we start to work on the pandemic I don't know, uh, uh, uh, uh, uh, uh, um. Um, so we also need to we need to New York Times and timeframe requirements and also your mass production requirements. Maybe just like a few weeks kind of you know, affirmation. 
-
-발화자 1  (09:51)
-Well, I have stones like this, so we will be clear about your requirements in order to meet your Microsoft, your production and also from outside the link. We hope these kind of cooperation will be beneficial to both of us. So for us, because we are manufactured. 
-
-발화자 1  (10:10)
-So our potential normally will include examples. We include the development costs. The medical news for customer hands that will be included for the so please, before the movement production. 
-
-발화자 1  (10:26)
-We need to do the modifications special design and real change. According to your requirements, including the UK Research and fundament So normally, in our protein will be accompanied by the The development cost then the product. But the research cost will be refunding when there's perhaps a minimal research I moved to autonomy with mutual agreement. 
-
-발화자 1  (11:03)
-So personally, it's one of the institutional functions. 
-
-
-발화자 1  (00:04)
-And other things we need to discuss about This is a note by the standards on the one piece. No matter how many pieces but for customers hands, we have to source all the components and do the manufacturing for you. So we must, you know, outcome. 
-
-발화자 1  (00:29)
-You I would like to control the cost and make the The production mode efficiently at every type means we have to deter some stocks that keep competence. Some of the components may be shared with our standardized summary special exclusion for Europeans. So that's where we have to have a lot of So close on the stock of the concrete So also to like I said to be so deliberate time to give you the 
-
-발화자 2  (01:06)
-2:02 hours. 
-
-발화자 1  (01:09)
-A lot of stones, so we need to specify the technology like alum. Stage, how many prototypes you need right now, right now? After the candidates finalized your quality in the first batch and the sequence, so we can discuss about. 
-
-발화자 1  (01:40)
-We also need to discuss about that. And No, no, you can send out my M. LQ once the MOQ is reached, so I'll be cost developing costume. 
-
-발화자 1  (01:50)
-Recounting the ability out in the metaphor sensor for the hands of immunological cost programmations. We don't need to leave it to It's I benefit from some new course that we hope that the cooperating can be a long-term. And that's We can keep supplying up products to begin 
-
-발화자 1  (02:25)
-From this document, I see that the production of deployed names about a 1000 cells for 2026, right? Then, that means a southern pair for 2010. So it was a very important so we have to make sure we have the goal of the world. 
-
-발화자 1  (02:59)
-That's quantity of requirements. I'm sorry. We have to catch on with your amount of view. 
-
-발화자 1  (03:05)
-That means a southern pair of hands will have to prepare all the stocks in Atlanta. If that is accurate amount of LG electronics, so that's not Is this something for the production plan? Also, after all, the design finish, we can discuss this thing. 
-
-발화자 1  (03:27)
-We have more details plans looking back at the time. 
-
-발화자 2  (03:34)
-How many times It's happening in the future. 
-
-발화자 1  (03:41)
-And the production for our life for the campaign is 
-
-발화자 1  (04:02)
-These are material products and we need to give us Normally we have some complete production stock. And also we have companies in stocks. So we can meet the customers with merit Some introduction. 
-
-발화자 1  (04:23)
-So we can also give a requirement. If we have resolved this in 1 week, no stop preferred production preparation. Like three weeks? 
-
-발화자 1  (04:39)
-Now, therefore our material product for new products. I see, and the very beginning. The time could be a little bit longer. 
-
-발화자 1  (04:47)
-Well, I missed me. 
-
-발화자 2  (05:09)
-Thank you so I'm just trying to respect the view. Just our voices space the focus on the problems The function has been used 
-
-발화자 1  (05:30)
-Education, so that's 
-
-발화자 2  (05:32)
-And it's just our development schedule. 
-
-발화자 1  (05:37)
-So firstly, we have to finish the concept design in the first group and that first design, we design also, they will help to do that test. And Last year, organizations advising these financial advice. We can go to the experimental planet. 
-
-발화자 2  (06:34)
-Yesterda. 
-
-발화자 1  (06:54)
-As I remember, you have to talk about the handsets. So right now I think before. 
-
-발화자 3  (07:38)
-In this case, we just want to use the decreasing data. 
-
-발화자 1  (07:42)
-It's Currency is functioning. 
-
-발화자 3  (07:48)
-We are not clear hydrogen continues to be us. 
-
-발화자 2  (08:01)
-Thank you so 
-
-발화자 1  (08:09)
-The 2.6909. We understand. Initially, and at this stage, we understand role requirements and the next step, we can look for your final life condition for all the requirements of the debate. 
-
-발화자 1  (08:30)
-The Tam's wonderful DEA. So we can just contact you right now. You also have a quotation. 
-
-발화자 1  (08:41)
-Do you have running any other questions or concerns? You can leave us know. 
-
-발화자 2  (08:50)
-Thank you so much. And then January 18th folded the company, and then the insuring vehicles on the neovol, is involved in the hand. I mentioned that really. 
-
-발화자 2  (09:10)
-We need to participate optimism or the interconnects of the human policy or engineer. So I want to necessarily take its problems. 
-
-발화자 1  (09:22)
-The more you want me to program, my team museum called the algorithms. 
-
-발화자 2  (09:28)
-And I want to examine a few concepts So, this year sites have been What time do you expect it to be? We instituted that death. 
-
-발화자 1  (09:55)
-Because I think 14 space will go to Germany immigrants Germany. So we will take about 1 week. So there's also in the legacy, also, yeah, so we will also go back to knowing what is You can tell about your potential visa time. 
-
-발화자 1  (10:18)
-So April, I think will be I'm gonna hold on the week OF13TO1713 to 17th. This week. And then next week I mean. 
-
-발화자 1  (10:38)
-I mean, Jimmy Benjamin. 
-
-
-
-발화자 1  (00:19)
-Glory events is chairman of the city. In this period of time Thank you so Let me visit the paksanim. Can we begin? 
-
-발화자 1  (00:46)
-Can you have choked out lecture? Yes, I'm moving. I want to let you see that you can begin 
-
-발화자 2  (00:56)
-I'll take some evidence that will be great for you. We were trying to Next visit agents of the hands of Mecca and avenues can be heard. People think that's 
-
-발화자 1  (01:25)
-I've been told that Angela Merkel's democracy is dealing with it. 
-
-발화자 1  (02:18)
-This is the Thank you so much. 
-
-발화자 1  (02:36)
-I'm sure the impression is that we will check out our schedule and when we will be back to China. 
-
-발화자 1  (03:13)
-Hi Bixby I want to 
-
-발화자 1  (03:35)
-Thank you so much. 
-
-발화자 1  (04:07)
-Actually, this time, we'll have tremendous examples for your analysis as well. For all the processes, we choose some models that we have. Now, previously delivered to us before we will be beneficial for a development instrument. 
-
-발화자 1  (04:51)
-Here's 
-
-발화자 2  (04:56)
-These customers meet. Can you use it for you? At this time, because Amazon doesn' 
-
-발화자 1  (05:06)
-Yeah, we can see. Also I suggest 
-
-발화자 1  (05:20)
-Thank you so much for Thank you so much. 
-
-발화자 1  (05:41)
-So very limited demand I will try to book a carefully pleased thing. The prices are actually the price of this one is quite magic. It's only 11800 years 13. 
-
-발화자 1  (06:09)
-Now it's the US Internal TV stories sounds Commonwealth. Classic and objects emphasized once I have the personal election. 
-
-발화자 1  (06:46)
-EX certainly is X. 
-
-발화자 1  (07:37)
-A water wire occurring 
-
-발화자 1  (08:06)
-This is one of the things I am just curious how many times do the viewers have done There are reasons. 
-
-발화자 1  (08:30)
-Department of algorithm means for specific timeline. Researchers have these artists saying some simple grassroots very quick. But something most sequenced are complicated. 
-
-발화자 1  (08:52)
-I'm just like a connection, simple task. We want to keep now. The company has 3 months team. 
-
-
-
-발화자 1  (00:05)
-I've always needed to do it. 
-
-발화자 2  (00:08)
-I know that I would I think though I would say 
-
-발화자 1  (00:14)
-GPM music and the joint landmarks in the world are recently like somewhere. You want to rewatch that development to develop algorithm of the joints and so forth. I'm thinking of reasoning. 
-
-발화자 3  (00:51)
-Thank you so much. 
-
-발화자 1  (01:07)
-Thank you so much. 313 developed this diagram. Bixby can you give 
-
-발화자 2  (01:20)
-I don't know very much about this but I can't get into the meeting next week or only at our point next weekend. 
-
-발화자 4  (01:37)
-Thanks again. 
-
-발화자 1  (02:08)
-Some of the change 
-
-발화자 1  (02:23)
-So I'm driving up 
-
-발화자 1  (02:48)
-This is new concept for eurozone future hands and insists each way to die associated with the movie. 
-
-발화자 2  (02:58)
-Here you go. 
-
-발화자 1  (03:00)
-That means. 
-
-발화자 2  (03:02)
-Thank you so 
-
-발화자 1  (03:11)
-It's changed the pushing its hand 
-
-발화자 2  (03:16)
-So in the future, they have been marked by the most smart, much more smarter than just important deals for grasping for the task. 
-
-발화자 1  (03:41)
-I just just doesn't just supply the cheap. And just the increase in immediate weight to cheap 
-
-발화자 2  (03:50)
-I think there will be two different competitions. Firstly, maybe some of our standard products only give the PhD museum. We have the building opportunities to the chip right and other ways that we will provide some brand application. 
-
-발화자 2  (04:10)
-Solutions, so the customer order is already with some algorithm algorithm. So we can deploy very quickly. What's important And that, of course, that price would be different. 
-
-발화자 2  (04:23)
-I don't 
-
-발화자 2  (04:34)
-I'm curious about the sir. 
-
-발화자 2  (04:49)
-I happen to I have to say to you. It's a question that's right next to this. Thank you so much. 
-
-발화자 2  (05:02)
-And share reviews about the households, and this is possible. 
-
-발화자 3  (05:13)
-Quincy. 
-
-발화자 2  (05:15)
-Okay, this is a question where you have sent to us. So you won't ask about the, you know, specifications and roadmaps of our views. Hands, because it finally is not final. 
-
-발화자 2  (05:28)
-So but I've already shared with you. Is that another presentation? So this, I think I give you my answer. 
-
-발화자 2  (05:36)
-And the second question Yes, we can just if you have these kinds of requirements that have smoke, and we can use that out projectile to work together. And the surf question so you want to know that I want you and these advantages and why do these ideas kind of cancel? Right? 
-
-발화자 2  (05:59)
-I can share with you so personally for us, we have to consider about Um, uh, uh. I like the coast, the lifespan accelerity and also the manufacturing cost and the integration difficulty the sensitive difficulty. That's our steps to design and manufacture the hand because in the market there are different kind of hands I can share with you. 
-
-발화자 2  (06:30)
-It doesn't say which one is the best way to get the worst. Just everyone, every one of us has this amongst us. I think now there are now there. 
-
-발화자 2  (06:47)
-The others are less design. So we choose an eqk drive from the this is a comparison of the different kind of statements so we can compare the kind of drive and also medium drive. So from the size of the panel drive, this control part and also the enterprise precedent control it. 
-
-발화자 2  (07:13)
-And also the weight is also matched comparatively. We are at the middle level. So the deal of freedom I've also very high And we're asking force actually It's not very robust, and it's not very robust. 
-
-발화자 2  (07:34)
-And lifecycle is also very so easy to be worried breaking or something. And the perception of ability, I think, is in the middle level. And the forecast is easy for us to integrate the cal sensors because these are all technologies. 
-
-발화자 2  (07:51)
-So it's also our advantage from this perspective we can compare to it. Now we can read to like and you'll remember some team with all the room. And also, the life cycle can be also very well. 
-
-발화자 2  (08:12)
-The need, because let me compare the tendency corridors, motor and nkk drive. So that the PAN is quite robust and durable compared with the other then next one, the multijointed. Actually, very, the most piece of modification is it's too expensive. 
-
-발화자 2  (08:38)
-But our price, I think, is like a middle level. There's a sharp app from the Singaporean plant. So there can be quite expensive, like fifty-fifty 1000 per piece, or 50000 to 60000 per piece expensive. 
-
-발화자 2  (09:06)
-These are you please normally So The other question about the design Vs the concept design and manufacturing form in our company. So we have already centered researchers for the protector hand for the detective sensors and also for the human robots and other products. So we divide the manufacturer everything in-house. 
-
-발화자 2  (09:40)
-But for the component, some of the components of computers, we design types. Yeah, Pizza organization. Quo. 
-
-발화자 2  (09:59)
-This is the question 
-
-
-발화자 1  (00:10)
-In fact, the risk is not true. So 
-
-발화자 1  (00:45)
-Yeah, thank you. Clean, I'm insurance and then hostile confirmed with our team. Please say we have to choose the thing that's 
-
-발화자 1  (01:16)
-So I mentioned 8, when we use a vast list for this motor And for the next 2 years In colder activity, colder is according to 01020. Maxim, communication. I think I'm ready for the tech power sensory tre. 
-
-발화자 1  (01:48)
-It's normally 20 TV per second. 
-
-발화자 1  (02:01)
-And the last question 
-
-발화자 1  (02:14)
-So this very general and wide question So far, we 
-
-발화자 2  (02:22)
-More. 
-
-발화자 1  (02:34)
-Applies now, because it's more like a generalized, you know, because it's different from the manufacturing perspective. We have some customers like if you have that note that company needs to be done. Find my Excellency, Mike's on the rules. 
-
-발화자 1  (02:55)
-Can you use reverse to the quote that causes the religious summit? Some kind of things that we' It is kind of a possible connection, but also given it 
-
-발화자 1  (03:18)
-It is also more challenging because it's very generalized. And sequenced water, that is something we are here for So there's an enemy because we have We have the second second. The detail factor is bound to develop this kind of crossing number. 
-
-발화자 1  (03:42)
-You know, the internet collection. So it's a kind of long sequence, then I might do another task. This, of course, another entertaining factor meaning somewhere. 
-
-발화자 1  (03:56)
-Specifically, that's So we need a picture of fine factories. We don't have a chance. I think also you might be able to be interested if algae code is going to thousands of homes. 
-
-발화자 1  (04:16)
-You know, we need a like a lot of data to train it So I'm 
-
-발화자 2  (04:29)
-According to your approval's question, it's about why can we reduce steel supplies? Plant visibility and when using the device I'm here to mechanism, but actually this is 2 abilities in separate scenarios is we can use the lineage of the mechanism. If your demand but if we are about to support the back disability, we will be using our walls group. 
-
-발화자 2  (05:02)
-There are some Tuesdays in the mechanism. Yes 
-
-발화자 1  (05:07)
-I'm 
-
-발화자 2  (05:07)
-I think that's correct. I'm sure it's about to support factibility. 
-
-발화자 1  (05:23)
-Now we're sending them to this And many in the optimal afternoon, I can do another presentation, because I think many of your colleagues have had a chance to know about our company. And the reason we have an update and new products we also share with you that, for example, we just reviewed the prox sensor for the children and other points. So this may be in the future to be using your code. 
-
-발화자 1  (05:55)
-We can also do some classimentation based on your numberback. 
-
-발화자 1  (06:44)
-October october is hard to talk about So yeah. So Thank you so These are very tight. These are tight, but we can try them. 
-
-발화자 1  (07:06)
-We need to act very fast. And finalize everything. And that is our experience. 
-
-발화자 1  (07:17)
-We don't know what are the changes. 
-
-발화자 3  (07:22)
-Thank you so much. 
-
-발화자 1  (07:23)
-I'm trying to be here. Thank you so much. 
-
-발화자 3  (07:37)
-I thought it I think there should be some biochemistry here. 
-
-발화자 1  (07:43)
-I understand this afternoon is Yeah, so let's go for part to finance it. Let's have a break high Thank you so much. 
-음성 031_W_20260407_111259
-
-
-음성 030_W_20260407_110443
-
-음성 029_W_20260407_105423
-
-음성 028_W_20260407_104447
-
-음성 027_W_20260407_103404
-
-음성 026_W_20260407_102248
-
-음성 025_W_20260407_101206
-
-음성 024_W_20260407_100235
-
-
+이번 회의를 통해 양측은 기존 제품 커스터마이징을 우선 방향으로 하되, 장기적으로는 완전 신규 개발도 검토하는 단계적 접근법에 합의했습니다. 2026년 대량 양산이라는 목표 달성을 위해서는 신속한 의사결정과 명확한 계약 조건 정의가 무엇보다 중요하다는 점에 공감대를 형성했습니다. 다음 독일 미팅에서 보다 구체적인 기술 사양과 계약 조건이 논의될 예정입니다.
