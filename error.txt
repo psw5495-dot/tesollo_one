@@ -1,1 +1,1 @@
-ERROR: Could not install packages due to an OSError: HTTPSConnectionPool(host='files.pythonhosted.org', port=443): Max retries exceeded with url: /packages/a4/bb/4f8d3b5570f587050ad115f1e8924f311d94fd53b199f384fc0061290ad1/vuer-0.1.6-py3-none-any.whl (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1017)')))
+pip install vuer --trusted-host pypi.org --trusted-host files.pythonhosted.org --trusted-host pypi.python.org
