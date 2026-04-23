@@ -1,13 +1,1 @@
-# Open-TeleVision 저장소 클론
-git clone https://github.com/OpenTeleVision/TeleVision.git
-cd TeleVision
-
-# ⚠️ 중요: ROS 2 환경을 먼저 로드해야 함
-source /opt/ros/humble/setup.bash
-source ~/ros2_ws/install/setup.bash  # Unitree 패키지가 있다면
-
-# 시스템 패키지 접근 가능한 가상환경 생성
-python3 -m venv --system-site-packages tv_env
-
-# 가상환경 활성화 (프롬프트에 (tv_env) 표시됨)
-source tv_env/bin/activate
+ERROR: Could not install packages due to an OSError: HTTPSConnectionPool(host='files.pythonhosted.org', port=443): Max retries exceeded with url: /packages/a0/09/e7637f4f0760cad4d67347bbd8311c6ad0259a3fc01f04555af9e84bd378/aiohttp-3.9.5-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1017)')))
