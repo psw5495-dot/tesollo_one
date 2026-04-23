@@ -1,75 +1,13 @@
-손 크기 / 손가락 크기 / 관절별 길이 비율​
+# Open-TeleVision 저장소 클론
+git clone https://github.com/OpenTeleVision/TeleVision.git
+cd TeleVision
 
-관절별 가동 범위 (ROM) & 기구적 Stopper 여부​
+# ⚠️ 중요: ROS 2 환경을 먼저 로드해야 함
+source /opt/ros/humble/setup.bash
+source ~/ros2_ws/install/setup.bash  # Unitree 패키지가 있다면
 
-Workspace​
+# 시스템 패키지 접근 가능한 가상환경 생성
+python3 -m venv --system-site-packages tv_env
 
-최소/최대 파지 직경​
-
-최소 움직임 분해능? (엔코더 resolution?에 따른 최소 움직임 범위)​
-
-반복정밀도​
-
-관절별 가동 속도​
-
-관절별 힘 (Fingertip Force 포함)​
-
-Grasping Force​
-
-Payload​
-
-소음​
-
-발열​
-
-전력 소모​
-
-반응 속도 ? 제어 주기?​
-
-Grasping Taxonomy / 카판지 테스트​
-
-역구동성​
-
-연속구동 가능 시간?​
-
-무게중심​
-
-​
-
-Tear-down 고려 시​
-
-BOM 분석​
-
-재질​
-
-부품 제조 공정​
-
-부품별 무게​
-
-조립구조/조립성​
-
-공차 분석​
-
-
-모터 사양​
-
-감속기 사양​
-
-Tactile 센서​
-
-카메라
-
-
-3. 신뢰성 항목​
-
-충격 테스트 (낙하, 충격)​
-
-가속 테스트​
-
-열충격 테스트​
-
-염무분사 테스트​
-
-온습도 방치 테스트​
-
-​​
+# 가상환경 활성화 (프롬프트에 (tv_env) 표시됨)
+source tv_env/bin/activate
